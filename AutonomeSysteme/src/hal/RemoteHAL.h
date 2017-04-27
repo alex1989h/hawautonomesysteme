@@ -13,10 +13,10 @@ public:
 	RemoteHAL();
 	virtual ~RemoteHAL();
 public:
-	int getValueChannel1();
-	int getValueChannel2();
-	int getValueChannel3();
-	int getValueChannel4();
+	int getValueChannel1(); // links und rechts rechter stick
+	int getValueChannel2(); // links und rechts linker stick
+	int getValueChannel3(); // vorwärts und rückwärts rechter stick
+	int getValueChannel4(); // vorwärts und rückwärts linker stick
 	int getValueChannel5();
 	int getValueChannel6();
 	int getValueChannel7();
