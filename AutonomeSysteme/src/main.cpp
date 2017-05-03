@@ -7,10 +7,15 @@
 //============================================================================
 
 #include <iostream>
+#include <thread>
+#include "threads/MotorGripperThread.h"
 #include "hal/HAL.h"
 using namespace std;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	cout << "!!!Autonome Systeme!!" << endl; // prints !!!Hello World!!!
+	thread t1(&MotorGripperThread::run,MotorGripperThread());
+	cout << "Threads wurden gestartet" << endl;
+	t1.join();
 	return 0;
 }

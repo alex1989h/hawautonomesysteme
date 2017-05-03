@@ -43,7 +43,7 @@ void fallingEdgeInterruptChannel4 (void) {
   isrTriggered = 1 ;
 }
 
-int main(void) {
+void ISRThread(void) {
   // Setup interrupts
   wiringPiSetup () ;  
   wiringPiISR (0, INT_EDGE_RISING, &risingEdgeInterruptChannel1) ;
@@ -51,7 +51,6 @@ int main(void) {
   wiringPiISR (2, INT_EDGE_RISING, &risingEdgeInterruptChannel3) ;
   wiringPiISR (3, INT_EDGE_RISING, &risingEdgeInterruptChannel4) ;
   wiringPiISR (4, INT_EDGE_FALLING, &fallingEdgeInterruptChannel4) ;
-
   
   for(;;) {
     if(isrTriggered == 1) {
