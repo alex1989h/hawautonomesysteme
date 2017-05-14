@@ -9,13 +9,13 @@
 #define TESTS_PRODUCER_H_
 #include <iostream>
 #include <unistd.h>
-#include "../../ipc/Queue.h"
+#include "../../ipc/QueueFactory.h"
 #include  "../../ipc/messages/MotorMessage.h"
 #include "../../ipc/Packet.h"
 
 class Producer {
 public:
-	Producer(Queue* queue);
+	Producer();
 	virtual ~Producer();
 	Queue* queue_;
 	void run(void);

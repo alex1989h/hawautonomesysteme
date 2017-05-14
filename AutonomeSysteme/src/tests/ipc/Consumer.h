@@ -8,12 +8,12 @@
 #ifndef TESTS_CONSUMER_H_
 #define TESTS_CONSUMER_H_
 #include <unistd.h>
-#include "../../ipc/Queue.h"
+#include "../../ipc/QueueFactory.h"
 #include  "../../ipc/messages/MotorMessage.h"
 #include "../../ipc/Packet.h"
 class Consumer {
 public:
-	Consumer(Queue* queue);
+	Consumer();
 	virtual ~Consumer();
 	Queue* queue_;
 	void run(void);

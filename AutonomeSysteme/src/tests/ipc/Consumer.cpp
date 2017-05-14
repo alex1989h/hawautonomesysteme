@@ -7,7 +7,8 @@
 
 #include "Consumer.h"
 #define MICROSEC 500*1000
-Consumer::Consumer(Queue* queue):queue_(queue) {
+
+Consumer::Consumer():queue_(NULL){
 
 }
 
@@ -16,6 +17,7 @@ Consumer::~Consumer() {
 }
  void Consumer::run(){
 	 Packet* temp;
+	 queue_ = QueueFactory::getQueue(MOTOR_GRIPPER_QUEUE_ID);
 	// MotorMessage* message;
 	 int var;
 	 	for (var = 0; var < 100; ++var) {
