@@ -17,17 +17,16 @@ Dispatcher::~Dispatcher() {
 }
 
 void Dispatcher::run(){
-	Queue* mainQueue = QueueFactory::getQueue(MAIN_QUEUE_ID);
-	Queue* tempQueue;
-	std::unordered_map<int,Queue*> *map = QueueFactory::getMap();
+	Queue *array[20];
+
+	array[MAIN_QUEUE_ID] = QueueFactory::getQueue(MAIN_QUEUE_ID);
+	array[MOTOR_GRIPPER_QUEUE_ID] = QueueFactory::getQueue(MOTOR_GRIPPER_QUEUE_ID);
+
 	Packet* temp;
 	int key;
 	while(1){
-		temp = mainQueue->dequeue();
+		temp = array[MAIN_QUEUE_ID]->dequeue();
 		key = temp->getDestinateId();
-		tempQueue = (*map)[key];
-		if (tempQueue != NULL) {
-			tempQueue->enqueue(temp);
-		}
+		array[key]->enqueue(temp);
 	}
 }
