@@ -14,12 +14,12 @@ using namespace std;
 
 void testQueue(){
 	thread t1(&Producer::run, Producer());
-	thread t2(&Dispatcher::run, Dispatcher());
+	//thread t2(&Dispatcher::run, Dispatcher());
 	thread t3(&Consumer::run, Consumer());
 
 	cout << "Threads wurden gestartet" << endl;
 	t1.join();
-	t2.join();
+	//t2.join();
 	t3.join();
 }
 

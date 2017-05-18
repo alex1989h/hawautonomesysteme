@@ -6,30 +6,33 @@
  */
 
 #include "Consumer.h"
+#include "../../logger/Logger.h"
 #define MICROSEC 500*1000
 
-Consumer::Consumer():queue_(NULL){
+Consumer::Consumer() :
+		queue_(NULL) {
 
 }
 
 Consumer::~Consumer() {
 	// TODO Auto-generated destructor stub
 }
- void Consumer::run(){
-	 Packet* temp;
-	 queue_ = QueueFactory::getQueue(MOTOR_GRIPPER_QUEUE_ID);
+void Consumer::run() {
+	LOG_DEBUG << "Verbraucher gestartet" << ENDL;
+	Packet* temp;
+	queue_ = QueueFactory::getQueue(MOTOR_GRIPPER_QUEUE_ID);
 	// MotorMessage* message;
-	 int var;
-	 	for (var = 0; var < 100; ++var) {
-	 		temp = queue_->dequeue();
-	 		//message = (MotorMessage*) temp->getMessage();
-	 		if(temp!=NULL){
-	 			std::cout << "dequeued: "<< temp->getLocalPacketId() << std::endl;
-	 		}else{
-	 			std::cout << "dequeued: "<< "NULL" << std::endl;
-	 		}
-//	 		delete message;
-	 		delete temp;
-	 		usleep(MICROSEC);
-	 	}
- }
+	int var;
+	for (var = 0; var < 20; ++var) {
+		temp = queue_->dequeue();
+		//message = (MotorMessage*) temp->getMessage();
+		if(temp!=NULL) {
+			LOG_DEBUG << "packet dequeued, id: " << temp->getLocalPacketId() << " " << var << ENDL;
+		} else {
+			LOG_DEBUG << "packet dequeued, " << "NULL" << " " << var << ENDL;
+		}
+		delete temp->getMessage();
+		delete temp;
+	}
+	LOG_DEBUG << "Verbraucher beendet" << ENDL;
+}

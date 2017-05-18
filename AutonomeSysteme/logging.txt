@@ -1,0 +1,46 @@
+LOGFILE. Build: 2017:05:18, 20:40:46:228
+2017:05:18, 20:40:46:228 DEBUG::: Verbraucher gestartet
+2017:05:18, 20:40:46:228 DEBUG::: Erzeuger gestartet
+2017:05:18, 20:40:46:228 DEBUG::: packet enqueued, id: -2147483648 0
+2017:05:18, 20:40:46:228 DEBUG::: packet dequeued, id: -2147483648 0
+2017:05:18, 20:40:47:232 DEBUG::: packet enqueued, id: -2147483647 1
+2017:05:18, 20:40:47:232 DEBUG::: packet dequeued, id: -2147483647 1
+2017:05:18, 20:40:48:233 DEBUG::: packet enqueued, id: -2147483646 2
+2017:05:18, 20:40:48:233 DEBUG::: packet dequeued, id: -2147483646 2
+2017:05:18, 20:40:49:236 DEBUG::: packet enqueued, id: -2147483645 3
+2017:05:18, 20:40:49:236 DEBUG::: packet dequeued, id: -2147483645 3
+2017:05:18, 20:40:50:238 DEBUG::: packet enqueued, id: -2147483644 4
+2017:05:18, 20:40:50:238 DEBUG::: packet dequeued, id: -2147483644 4
+2017:05:18, 20:40:51:239 DEBUG::: packet enqueued, id: -2147483643 5
+2017:05:18, 20:40:51:239 DEBUG::: packet dequeued, id: -2147483643 5
+2017:05:18, 20:40:52:240 DEBUG::: packet enqueued, id: -2147483642 6
+2017:05:18, 20:40:52:240 DEBUG::: packet dequeued, id: -2147483642 6
+2017:05:18, 20:40:53:240 DEBUG::: packet enqueued, id: -2147483641 7
+2017:05:18, 20:40:53:240 DEBUG::: packet dequeued, id: -2147483641 7
+2017:05:18, 20:40:54:241 DEBUG::: packet enqueued, id: -2147483640 8
+2017:05:18, 20:40:54:241 DEBUG::: packet dequeued, id: -2147483640 8
+2017:05:18, 20:40:55:241 DEBUG::: packet enqueued, id: -2147483639 9
+2017:05:18, 20:40:55:242 DEBUG::: packet dequeued, id: -2147483639 9
+2017:05:18, 20:40:56:242 DEBUG::: packet enqueued, id: -2147483638 10
+2017:05:18, 20:40:56:242 DEBUG::: packet dequeued, id: -2147483638 10
+2017:05:18, 20:40:57:243 DEBUG::: packet enqueued, id: -2147483637 11
+2017:05:18, 20:40:57:243 DEBUG::: packet dequeued, id: -2147483637 11
+2017:05:18, 20:40:58:243 DEBUG::: packet enqueued, id: -2147483636 12
+2017:05:18, 20:40:58:244 DEBUG::: packet dequeued, id: -2147483636 12
+2017:05:18, 20:40:59:244 DEBUG::: packet enqueued, id: -2147483635 13
+2017:05:18, 20:40:59:244 DEBUG::: packet dequeued, id: -2147483635 13
+2017:05:18, 20:41:00:245 DEBUG::: packet enqueued, id: -2147483634 14
+2017:05:18, 20:41:00:245 DEBUG::: packet dequeued, id: -2147483634 14
+2017:05:18, 20:41:01:246 DEBUG::: packet enqueued, id: -2147483633 15
+2017:05:18, 20:41:01:246 DEBUG::: packet dequeued, id: -2147483633 15
+2017:05:18, 20:41:02:246 DEBUG::: packet enqueued, id: -2147483632 16
+2017:05:18, 20:41:02:246 DEBUG::: packet dequeued, id: -2147483632 16
+2017:05:18, 20:41:03:247 DEBUG::: packet enqueued, id: -2147483631 17
+2017:05:18, 20:41:03:247 DEBUG::: packet dequeued, id: -2147483631 17
+2017:05:18, 20:41:04:248 DEBUG::: packet enqueued, id: -2147483630 18
+2017:05:18, 20:41:04:248 DEBUG::: packet dequeued, id: -2147483630 18
+2017:05:18, 20:41:05:248 DEBUG::: packet enqueued, id: -2147483629 19
+2017:05:18, 20:41:05:249 DEBUG::: packet dequeued, id: -2147483629 19
+2017:05:18, 20:41:05:249 DEBUG::: Verbraucher beendet
+2017:05:18, 20:41:06:249 DEBUG::: Erzeuger beendet
+END OF LOGFILE
