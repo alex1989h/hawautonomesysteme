@@ -6,6 +6,8 @@
  */
 
 #include "ADS1015.h"
+#include <unistd.h>
+#include <iostream>
 
 //Registers
 #define ADS1015_CONVERSION_REGISTER				0x00
@@ -25,11 +27,12 @@
  */
 ADS1015::ADS1015(uint8_t address) :
 		address(address) {
-	fd = wiringPiI2CSetup(address);
+	fd = wiringPiI2CSetup(0x48);
 	if (fd == -1) {
 		// TODO: Add initialization error to logger
 	} else {
-		config = getConfigRegister();
+		config = ADS1015_DEFAULT_CONFIG;
+		configure(config);
 	}
 }
 
@@ -49,7 +52,6 @@ ADS1015::ADS1015(uint8_t address, uint16_t config) :
 }
 
 ADS1015::~ADS1015() {
-
 }
 
 /**
@@ -65,14 +67,17 @@ void ADS1015::configure(uint16_t config) {
  * @param adc an A/D-Converter in the Config Register.
  * @return 12-bit value of the selected A/D-Converter.
  */
-uint16_t ADS1015::getValueFromADC(uint16_t adc) {
-	config &= ~(ADS1015_ADC_CLEAR);
-	config |= adc;
-	config |= ADS1015_START_SINGLE_SHOT;
+int16_t ADS1015::getValueFromADC(uint16_t adc) {
+	// Change ADC and start conversion
+	configure(config | adc);
+	usleep(700); // wait till conversion is done
 
-	wiringPiI2CWriteReg16(fd, ADS1015_CONFIG_REGISTER, config);
-
-	return wiringPiI2CReadReg16(fd, ADS1015_CONVERSION_REGISTER) >> ADS1015_CONVERSION_REGISTER_OFFESET;
+	uint16_t result = wiringPiI2CReadReg16(fd, ADS1015_CONVERSION_REGISTER);
+	// Swap bytes - wrong order in I2C registers
+	uint8_t high_byte = result & 0xFF;
+	uint8_t low_byte = (result >> 8) & 0xFF;
+	int16_t distance = ((high_byte << 8) | low_byte) >> 4;
+	return distance;
 }
 
 /**

@@ -61,7 +61,7 @@ void SRF10::configure(uint8_t gain, uint16_t range) {
  * Start a measurement and returns its result.
  * @return Result of the current ranging in centimeters.
  */
-uint16_t SRF10::getDistance() {
+uint16_t SRF10::measureDistance() {
 	wiringPiI2CWriteReg8(fd, SRF10_COMMAND_REGISTER, SRF10_START_RANGING_CENTIMETERS);
 
 	int measuring;

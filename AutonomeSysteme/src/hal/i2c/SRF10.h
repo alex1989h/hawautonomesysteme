@@ -21,10 +21,21 @@ public:
 	SRF10(uint8_t, uint8_t , uint16_t);
 	virtual ~SRF10();
 	void configure(uint8_t, uint16_t);
-	uint16_t getDistance();
+
+	uint16_t getDistance() const {
+		return distance;
+	}
+
+	void refreshDistance(){
+		distance = measureDistance();
+	}
+
 private:
 	const uint8_t address;
 	uint32_t fd;
+	uint16_t distance;
+
+	uint16_t measureDistance();
 };
 
 #endif /* HAL_I2C_SRF10_H_ */
