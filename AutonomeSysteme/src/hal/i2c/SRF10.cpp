@@ -61,7 +61,7 @@ void SRF10::configure(uint8_t gain, uint16_t range) {
  * Start a measurement and returns its result.
  * @return Result of the current ranging in centimeters.
  */
-uint16_t SRF10::getDistance() {
+uint16_t SRF10::measureDistance() {
 	wiringPiI2CWriteReg8(fd, SRF10_COMMAND_REGISTER, SRF10_START_RANGING_CENTIMETERS);
 
 	int measuring;
@@ -69,7 +69,7 @@ uint16_t SRF10::getDistance() {
 		measuring = wiringPiI2CReadReg8(fd, SRF10_SOFTWARE_REVISION);
 	} while (measuring == SRF10_MEASUREMENT_RUNNING);
 
-	// wait otherwise the result is not correct
+	// wait otherwise the result is not correct.
 	// TODO: adjust timer + do something else while waiting
 	usleep(10000);
 

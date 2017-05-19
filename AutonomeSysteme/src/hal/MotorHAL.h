@@ -7,13 +7,26 @@
 
 #ifndef HAL_MOTORHAL_H_
 #define HAL_MOTORHAL_H_
+#include <wiringPi.h>
+#include <softPwm.h>
+
 #include "Direction.h"
 class MotorHAL {
 public:
-	MotorHAL();
+	/**
+	 * This function is called to get an instance of the MotorHAL.
+	 * @return An instance of MotorHAL.
+	 */
+	static MotorHAL& getInstance() {
+		static MotorHAL instance;
+		return instance;
+	}
 	virtual ~MotorHAL();
 public:
-	void moveForeward();
+	MotorHAL();
+	// TODO
+	void move(int speedLeft, int speedRight);
+
 	void moveForeward(int distance);
 	void moveBackward();
 	void moveBackward(int distance);

@@ -10,8 +10,17 @@
 
 class TachometerHAL {
 public:
-	TachometerHAL();
+	/**
+	 * This function is called to get an instance of the TachometerHAL.
+	 * @return An instance of TachometerHAL.
+	 */
+	static TachometerHAL& getInstance() {
+		static TachometerHAL instance;
+		return instance;
+	}
 	virtual ~TachometerHAL();
+private:
+	TachometerHAL();
 };
 
 #endif /* HAL_TACHOMETERHAL_H_ */

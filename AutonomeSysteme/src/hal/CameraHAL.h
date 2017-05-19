@@ -10,8 +10,17 @@
 
 class CameraHAL {
 public:
-	CameraHAL();
+	/**
+	 * This function is called to get an instance of the CameraHAL.
+	 * @return An instance of CameraHAL.
+	 */
+	static CameraHAL& getInstance() {
+		static CameraHAL instance;
+		return instance;
+	}
 	virtual ~CameraHAL();
+private:
+	CameraHAL();
 };
 
 #endif /* HAL_CAMERAHAL_H_ */

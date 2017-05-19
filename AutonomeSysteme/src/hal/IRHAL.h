@@ -10,9 +10,17 @@
 
 class IRHAL {
 public:
-	IRHAL();
+	/**
+	 * This function is called to get an instance of the IRHAL.
+	 * @return An instance of IRHAL.
+	 */
+	static IRHAL& getInstance() {
+		static IRHAL instance;
+		return instance;
+	}
 	virtual ~IRHAL();
 public:
+	IRHAL();
 	int getDistanceRight();
 	int getDistanceLeft();
 	int getDistanceCenter();

@@ -10,9 +10,17 @@
 
 class GripperHAL {
 public:
-	GripperHAL();
+	/**
+	 * This function is called to get an instance of the GripperHAL.
+	 * @return An instance of GripperHAL.
+	 */
+	static GripperHAL& getInstance() {
+		static GripperHAL instance;
+		return instance;
+	}
 	virtual ~GripperHAL();
 public:
+	GripperHAL();
 	void moveUp();
 	void moveUp(int percent);
 	void moveDown();

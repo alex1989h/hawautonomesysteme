@@ -7,35 +7,27 @@
 
 #include "HAL.h"
 
-MotorHAL* HAL::getMotorHAL() {
-	static MotorHAL *instance = new MotorHAL();
-	return instance;
+MotorHAL& HAL::getMotorHAL() {
+	return MotorHAL::getInstance();
 }
-GripperHAL* HAL::getGripperHAL() {
-	static GripperHAL *instance = new GripperHAL();
-	return instance;
+GripperHAL& HAL::getGripperHAL() {
+	return GripperHAL::getInstance();
 }
-RemoteHAL* HAL::getRemoteHAL() {
-	static RemoteHAL *instance = new RemoteHAL();
-	return instance;
+RemoteHAL& HAL::getRemoteHAL() {
+	return RemoteHAL::getInstance();
 }
-CameraHAL* HAL::getCameraHAL() {
-	static CameraHAL *instance = new CameraHAL();
-	return instance;
+CameraHAL& HAL::getCameraHAL() {
+	return CameraHAL::getInstance();
 }
-UltrasonicHAL* HAL::getUltrasonicHAL() {
-	static UltrasonicHAL *instance = new UltrasonicHAL();
-	return instance;
+UltrasonicHAL& HAL::getUltrasonicHAL() {
+	return UltrasonicHAL::getInstance();
 }
-IRHAL* HAL::getIRHAL() {
-	static IRHAL *instance = new IRHAL();
-	return instance;
+IRHAL& HAL::getIRHAL() {
+	return IRHAL::getInstance();
 }
-TachometerHAL* HAL::getTachometerHAL() {
-	static TachometerHAL *instance = new TachometerHAL();
-	return instance;
+TachometerHAL& HAL::getTachometerHAL() {
+	return TachometerHAL::getInstance();
 }
-BatteryHAL* HAL::getBatteryHAL() {
-	static BatteryHAL *instance = new BatteryHAL();
-	return instance;
+BatteryHAL& HAL::getBatteryHAL() {
+	return BatteryHAL::getInstance();
 }
