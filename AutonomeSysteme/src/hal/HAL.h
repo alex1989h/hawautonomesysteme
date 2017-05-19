@@ -25,15 +25,47 @@ private:
 	HAL &operator=(const HAL &other);
 	~HAL();
 public:
-	static MotorHAL *getMotorHAL();
-	static GripperHAL *getGripperHAL();
-	static RemoteHAL *getRemoteHAL();
-	static CameraHAL *getCameraHAL();
-	static UltrasonicHAL *getUltrasonicHAL();
-	static IRHAL *getIRHAL();
-	static TachometerHAL *getTachometerHAL();
-	static BatteryHAL *getBatteryHAL();
-	
+	/**
+	 * This function is called to get an instance of the MotorHAL.
+	 * @return An instance of MotorHAL.
+	 */
+	static MotorHAL& getMotorHAL();
+	/**
+	 * This function is called to get an instance of the GripperHAL.
+	 * @return An instance of GripperHAL.
+	 */
+	static GripperHAL& getGripperHAL();
+	/**
+	 * This function is called to get an instance of the RemoteHAL.
+	 * @return An instance of RemoteHAL.
+	 */
+	static RemoteHAL& getRemoteHAL();
+	/**
+	 * This function is called to get an instance of the CameraHAL.
+	 * @return An instance of CameraHAL.
+	 */
+	static CameraHAL& getCameraHAL();
+	/**
+	 * This function is called to get an instance of the UltrasonicHAL.
+	 * @return An instance of UltrasonicHAL.
+	 */
+	static UltrasonicHAL& getUltrasonicHAL();
+	/**
+	 * This function is called to get an instance of the IRHAL.
+	 * @return An instance of IRHAL.
+	 */
+	static IRHAL& getIRHAL();
+	/**
+	 * This function is called to get an instance of the TachometerHAL.
+	 * @return An instance of TachometerHAL.
+	 */
+	static TachometerHAL& getTachometerHAL();
+	/**
+	 * This function is called to get an instance of the BatteryHAL.
+	 * @return An instance of BatteryHAL.
+	 */
+	static BatteryHAL& getBatteryHAL();
+
 };
 
 #endif /* HAL_HAL_H_ */

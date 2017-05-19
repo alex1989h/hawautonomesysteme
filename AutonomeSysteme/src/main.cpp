@@ -23,7 +23,7 @@ int main() {
 	HAL::getRemoteHAL();
 //	testQueue();
 	while(true){
-		HAL::getMotorHAL()->move(HAL::getRemoteHAL()->getValueChannel2(), HAL::getRemoteHAL()->getValueChannel3());
+		HAL::getMotorHAL().move(HAL::getRemoteHAL().getValueChannel2(), HAL::getRemoteHAL().getValueChannel3());
 	}
 	return 0;
 }

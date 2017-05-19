@@ -10,8 +10,17 @@
 
 class BatteryHAL {
 public:
-	BatteryHAL();
+	/**
+	 * This function is called to get an instance of the BatteryHAL.
+	 * @return An instance of BatteryHAL.
+	 */
+	static BatteryHAL& getInstance() {
+		static BatteryHAL instance;
+		return instance;
+	}
 	virtual ~BatteryHAL();
+private:
+	BatteryHAL();
 };
 
 #endif /* HAL_BATTERYHAL_H_ */

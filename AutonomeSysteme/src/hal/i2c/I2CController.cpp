@@ -12,10 +12,10 @@
 using namespace std;
 
 I2CController::I2CController():
-	frontLeft(0x71, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
-	frontRight(0x70, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
-	rearLeft(0x72, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
-	rearRight(0x73, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	frontLeftUltrasonic(0x71, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	frontRightUltrasonic(0x70, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	rearLeftUltrasonic(0x72, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	rearRightUltrasonic(0x73, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
 
 	A_D_Converter(0x48)
 {
@@ -33,12 +33,14 @@ void I2CController::run(I2CController* controller){
 		// TODO update sensor data and contol motor
 		controller->A_D_Converter.refresh_ADC_0();
 		controller->A_D_Converter.refresh_ADC_1();
-		// controller->A_D_Converter.refresh_ADC_2();
+		controller->A_D_Converter.refresh_ADC_2();
 
-		controller->frontLeft.refreshDistance();
-//		controller->rearRight.refreshDistance();
-		controller->frontRight.refreshDistance();
-//		controller->rearLeft.refreshDistance();
+		controller->frontLeftUltrasonic.refreshDistance();
+		controller->rearRightUltrasonic.refreshDistance();
+		controller->frontRightUltrasonic.refreshDistance();
+		controller->rearLeftUltrasonic.refreshDistance();
 	}
 }
+
+
 

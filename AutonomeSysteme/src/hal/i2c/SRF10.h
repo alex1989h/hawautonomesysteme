@@ -22,17 +22,24 @@ public:
 	virtual ~SRF10();
 	void configure(uint8_t, uint16_t);
 
+	/**
+	 * Get the distance in centimeters.
+	 * @return Distance in centimeters.
+	 */
 	uint16_t getDistance() const {
 		return distance;
 	}
 
+	/**
+	 * Refresh the ultrasonic sensors measured distance.
+	 */
 	void refreshDistance(){
 		distance = measureDistance();
 	}
 
 private:
 	const uint8_t address;
-	uint32_t fd;
+	int32_t fd;
 	uint16_t distance;
 
 	uint16_t measureDistance();

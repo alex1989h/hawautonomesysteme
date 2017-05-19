@@ -11,6 +11,9 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <wiringPiI2C.h>
+#include <byteswap.h>
+#include <unistd.h>
+#include <iostream>
 
 #define ADS1015_MUX_ADC_0					0x4000
 #define ADS1015_MUX_ADC_1					0x5000
@@ -36,41 +39,19 @@ public:
 	virtual ~ADS1015();
 	void configure(uint16_t);
 
-	void refresh_ADC_0() {
-		distance_ADC_0 = getValueFromADC(ADS1015_MUX_ADC_0);
-	}
+	void refresh_ADC_0();
+	void refresh_ADC_1();
+	void refresh_ADC_2();
+	void refresh_ADC_3();
 
-	void refresh_ADC_1() {
-		distance_ADC_1 = getValueFromADC(ADS1015_MUX_ADC_1);
-	}
-
-	void refresh_ADC_2() {
-		distance_ADC_2 = getValueFromADC(ADS1015_MUX_ADC_2);
-	}
-
-	void refresh_ADC_3() {
-		distance_ADC_3 = getValueFromADC(ADS1015_MUX_ADC_3);
-	}
-
-	int16_t getDistanceAdc0() const {
-		return distance_ADC_0;
-	}
-
-	int16_t getDistanceAdc1() const {
-		return distance_ADC_1;
-	}
-
-	int16_t getDistanceAdc2() const {
-		return distance_ADC_2;
-	}
-
-	int16_t getDistanceAdc3() const {
-		return distance_ADC_3;
-	}
+	int16_t getDistanceAdc0() const;
+	int16_t getDistanceAdc1() const;
+	int16_t getDistanceAdc2() const;
+	int16_t getDistanceAdc3() const;
 
 private:
 	const uint8_t address;
-	uint32_t fd;
+	int32_t fd;
 	uint16_t config;
 
 	int16_t distance_ADC_0;

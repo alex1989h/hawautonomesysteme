@@ -7,6 +7,8 @@
 
 #include "RemoteHAL.h"
 
+vector<timespec> interruptArrival(7);
+
 RemoteHAL::RemoteHAL() {
 	wiringPiSetup();
 	wiringPiISR(15, INT_EDGE_RISING, &RemoteHAL::risingEdgeInterruptChannel1);
@@ -25,23 +27,23 @@ RemoteHAL::~RemoteHAL() {
 	// TODO Auto-generated destructor stub
 }
 
+struct timespec RemoteHAL::interruptArrival[7];
+long RemoteHAL::pulseWidth[7];
+
 void RemoteHAL::risingEdgeInterruptChannel1() {
 	clock_gettime(CLOCK_REALTIME, &interruptArrival[0]);
 }
 
 void RemoteHAL::risingEdgeInterruptChannel2() {
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[1]);
-	pulseWidth[0] = interruptArrival[1].tv_nsec - interruptArrival[0].tv_nsec;
+	refreshPulseWidth(1,0);
 }
 
 void RemoteHAL::risingEdgeInterruptChannel3() {
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[2]);
-	pulseWidth[1] = interruptArrival[2].tv_nsec - interruptArrival[1].tv_nsec;
+	refreshPulseWidth(2,1);
 }
 
 void RemoteHAL::risingEdgeInterruptChannel4() {
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[1]);
-	pulseWidth[2] = interruptArrival[3].tv_nsec - interruptArrival[2].tv_nsec;
+	refreshPulseWidth(3,2);
 }
 
 void RemoteHAL::fallingEdgeInterruptChannel4() {
@@ -55,18 +57,21 @@ void RemoteHAL::risingEdgeInterruptChannel5() {
 }
 
 void RemoteHAL::risingEdgeInterruptChannel6() {
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[6]);
-	pulseWidth[5] = (interruptArrival[6].tv_nsec - interruptArrival[5].tv_nsec);
+	refreshPulseWidth(6,5);
 }
 
 void RemoteHAL::risingEdgeInterruptChannel7() {
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[7]);
-	pulseWidth[6] = (interruptArrival[6].tv_nsec - interruptArrival[5].tv_nsec);
+	refreshPulseWidth(7,6);
 }
 
 void RemoteHAL::fallingEdgeInterruptChannel7() {
 	struct timespec arrrival;
 	clock_gettime(CLOCK_REALTIME, &arrrival);
 	pulseWidth[7] = (arrrival.tv_nsec - interruptArrival[6].tv_nsec);
+}
+
+void RemoteHAL::refreshPulseWidth(uint8_t current_interrupt, uint8_t last_interrupt){
+	clock_gettime(CLOCK_REALTIME, &interruptArrival[current_interrupt]);
+	pulseWidth[last_interrupt] = interruptArrival[current_interrupt].tv_nsec - interruptArrival[last_interrupt].tv_nsec;
 }
 

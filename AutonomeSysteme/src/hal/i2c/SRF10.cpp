@@ -69,7 +69,7 @@ uint16_t SRF10::measureDistance() {
 		measuring = wiringPiI2CReadReg8(fd, SRF10_SOFTWARE_REVISION);
 	} while (measuring == SRF10_MEASUREMENT_RUNNING);
 
-	// wait otherwise the result is not correct
+	// wait otherwise the result is not correct.
 	// TODO: adjust timer + do something else while waiting
 	usleep(10000);
 
