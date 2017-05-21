@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include <thread>
-#include "threads/MotorGripperThread.h"
 #include "./hal/i2c/I2CController.h"
 #include "./hal/HAL.h"
 #include "tests/ipc/QueueTest.h"
