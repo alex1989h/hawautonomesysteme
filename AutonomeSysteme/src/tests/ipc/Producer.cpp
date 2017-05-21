@@ -20,10 +20,12 @@ void Producer::run(){
 	LOG_DEBUG << "Erzeuger gestartet" << ENDL;
 	int var;
 	Packet* temp;
-	queue_ = QueueFactory::getQueue(MOTOR_GRIPPER_QUEUE_ID);
+	queue_ = QueueFactory::getQueue(MOTOR_QUEUE_ID);
 	for (var = 0; var < 20; ++var) {
-		temp = new Packet(MOTOR_GRIPPER_QUEUE_ID,1,new MotorMessage(var));
+		temp = new Packet(MOTOR_GRIPPER_QUEUE_ID,1,new MotorMessage());
 		queue_->enqueue(temp);
+		temp = new Packet(MOTOR_GRIPPER_QUEUE_ID,1,new GripperMessage());
+				queue_->enqueue(temp);
 		LOG_DEBUG << "packet enqueued, id: " << temp->getLocalPacketId() << " " << var << ENDL;
 		usleep(MICROSEC);
 	}

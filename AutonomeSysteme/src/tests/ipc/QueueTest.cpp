@@ -9,18 +9,25 @@
 #include "Producer.h"
 #include "QueueTest.h"
 #include "../../ipc/Dispatcher.h"
+#include "../../threads/MotorThread.h"
+#include "../../threads/RemoteThread.h"
 
 using namespace std;
 
 void testQueue(){
-	thread t1(&Producer::run, Producer());
-	//thread t2(&Dispatcher::run, Dispatcher());
-	thread t3(&Consumer::run, Consumer());
+	MotorThread* motor = new MotorThread();
+	RemoteThread* remote = new RemoteThread();
 
+	motor->start();
+	remote->start();
 	cout << "Threads wurden gestartet" << endl;
-	t1.join();
-	//t2.join();
-	t3.join();
+
+	motor->join();
+	cout << "motor end" << endl;
+
+	remote->join();
+	cout << "remote end" << endl;
+
 }
 
 

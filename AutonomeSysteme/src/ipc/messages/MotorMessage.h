@@ -10,14 +10,16 @@
 #include "Message.h"
 class MotorMessage: public Message {
 public:
-	MotorMessage(int degree);
+	MotorMessage();
 	virtual ~MotorMessage();
-
-private:
-	int degree_;
 public:
-	int getDegree() const;
-	void setDegree(int degree);
+	int getLeftSpeed() const;
+	void setLeftSpeed(int leftSpeed);
+	int getRightSpeed() const;
+	void setRightSpeed(int rightSpeed);
+private:
+	int leftSpeed_;
+	int rightSpeed_;
 
 };
 

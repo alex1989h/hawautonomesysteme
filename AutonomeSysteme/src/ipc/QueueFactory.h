@@ -13,6 +13,7 @@
 
 #define MAIN_QUEUE_ID 0
 #define MOTOR_GRIPPER_QUEUE_ID 1
+#define MOTOR_QUEUE_ID 2
 
 class QueueFactory {
 private:

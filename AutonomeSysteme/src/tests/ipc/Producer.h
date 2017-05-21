@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include "../../ipc/QueueFactory.h"
 #include  "../../ipc/messages/MotorMessage.h"
+#include  "../../ipc/messages/GripperMessage.h"
 #include "../../ipc/Packet.h"
 
 class Producer {
