@@ -30,3 +30,6 @@
 
 # Generated Doxygen files
 AutonomeSysteme/doxygen/html/
+
+#language.settings.xml nervt
+AutonomeSysteme/.settings/language.settings.xml
