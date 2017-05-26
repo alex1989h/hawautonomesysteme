@@ -25,8 +25,10 @@ RemoteThread::~RemoteThread() {
 }
 
 void RemoteThread::run() {
-	Queue* queue = QueueFactory::getQueue(MOTOR_QUEUE_ID);
-	MotorMessage* message = NULL;
+	Queue* motorQueue = QueueFactory::getQueue(MOTOR_QUEUE_ID);
+	Queue* gripperQueue = QueueFactory::getQueue(GRIPPER_QUEUE_ID);
+	MotorMessage* motorMessage = NULL;
+	GripperMessage* message2 = NULL;
 	int oldRight = 0, oldLeft = 0;
 	int right = 0, left = 0;
 	while (!isInterrupted()) {

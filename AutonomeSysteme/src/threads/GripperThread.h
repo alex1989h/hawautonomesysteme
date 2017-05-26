@@ -9,13 +9,17 @@
 #define THREADS_GRIPPERTHREAD_H_
 
 #include "MyThread.h"
+#include "../ipc/messages/GripperMessage.h"
+#include <typeinfo>
 
 class GripperThread: public MyThread {
 public:
 	GripperThread();
 	virtual ~GripperThread();
-public:
+private:
 	void run(void);
+	bool isGripperMessage(const Message* message);
+	void handleOnMessage(GripperMessage* message);
 };
 
 #endif /* THREADS_GRIPPERTHREAD_H_ */
