@@ -12,6 +12,7 @@
 #include "./hal/HAL.h"
 #include "tests/ipc/QueueTest.h"
 #include "threads/GripperThread.h"
+#include "threads/RemoteThread.h"
 using namespace std;
 
 int main() {
@@ -25,8 +26,8 @@ int main() {
 //	while(true){
 //		HAL::getMotorHAL().move(HAL::getRemoteHAL().getValueChannel2(), HAL::getRemoteHAL().getValueChannel3());
 //	}
-	GripperThread gripperThread;
-	gripperThread.start();
-	gripperThread.join();
+	RemoteThread remoteThread;
+	remoteThread.start();
+	remoteThread.join();
 	return 0;
 }

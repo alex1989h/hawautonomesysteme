@@ -83,11 +83,12 @@ public:
 	int getValueChannel7() {
 		return pulseWidth[6];
 	}
+	long getTime(uint8_t index) const;
 
 private:
 	RemoteHAL();
-	static struct timespec interruptArrival[7];
-	static long pulseWidth[7];
+	static struct timespec interruptArrival[8];
+	static long pulseWidth[8];
 
 	static void risingEdgeInterruptChannel1();
 	static void risingEdgeInterruptChannel2();

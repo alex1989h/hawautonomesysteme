@@ -27,8 +27,8 @@ RemoteHAL::~RemoteHAL() {
 	// TODO Auto-generated destructor stub
 }
 
-struct timespec RemoteHAL::interruptArrival[7];
-long RemoteHAL::pulseWidth[7];
+struct timespec RemoteHAL::interruptArrival[8];
+long RemoteHAL::pulseWidth[8];
 
 void RemoteHAL::risingEdgeInterruptChannel1() {
 	clock_gettime(CLOCK_REALTIME, &interruptArrival[0]);
@@ -75,3 +75,6 @@ void RemoteHAL::refreshPulseWidth(uint8_t current_interrupt, uint8_t last_interr
 	pulseWidth[last_interrupt] = interruptArrival[current_interrupt].tv_nsec - interruptArrival[last_interrupt].tv_nsec;
 }
 
+long RemoteHAL::getTime(uint8_t index) const{
+	return interruptArrival[index].tv_nsec;
+}
