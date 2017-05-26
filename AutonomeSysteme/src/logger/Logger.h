@@ -33,6 +33,7 @@
 	else Logger::getLogger().log("ERROR:::")
 
 #define ENDL std::endl;
+#define COUT std::cout
 
 #define LOG_SET_LEVEL(value) Logger::getLogger().setLoggingLevel(value);
 #define LOG_SCOPE LogScope logscope(__FUNCTION__);

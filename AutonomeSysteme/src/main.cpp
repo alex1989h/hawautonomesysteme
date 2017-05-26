@@ -11,6 +11,7 @@
 #include "./hal/i2c/I2CController.h"
 #include "./hal/HAL.h"
 #include "tests/ipc/QueueTest.h"
+#include "threads/GripperThread.h"
 using namespace std;
 
 int main() {
@@ -19,10 +20,13 @@ int main() {
 //	cout << "Threads wurden gestartet" << endl;
 //	t1.join();
 //	I2CController& controller = I2CController::getInstance();
-	HAL::getRemoteHAL();
+//	HAL::getRemoteHAL();
 //	testQueue();
-	while(true){
-		HAL::getMotorHAL().move(HAL::getRemoteHAL().getValueChannel2(), HAL::getRemoteHAL().getValueChannel3());
-	}
+//	while(true){
+//		HAL::getMotorHAL().move(HAL::getRemoteHAL().getValueChannel2(), HAL::getRemoteHAL().getValueChannel3());
+//	}
+	GripperThread gripperThread;
+	gripperThread.start();
+	gripperThread.join();
 	return 0;
 }

@@ -20,7 +20,7 @@ void Dispatcher::run(){
 	Queue *array[20];
 
 	array[MAIN_QUEUE_ID] = QueueFactory::getQueue(MAIN_QUEUE_ID);
-	array[MOTOR_GRIPPER_QUEUE_ID] = QueueFactory::getQueue(MOTOR_GRIPPER_QUEUE_ID);
+	array[MOTOR_QUEUE_ID] = QueueFactory::getQueue(MOTOR_QUEUE_ID);
 
 	Packet* temp;
 	int key;

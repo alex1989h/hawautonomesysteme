@@ -18,9 +18,10 @@ public:
 		static GripperHAL instance;
 		return instance;
 	}
+private:
+	GripperHAL();
 	virtual ~GripperHAL();
 public:
-	GripperHAL();
 	void moveUp();
 	void moveUp(int percent);
 	void moveDown();

@@ -20,7 +20,7 @@ Consumer::~Consumer() {
 void Consumer::run() {
 	LOG_DEBUG << "Verbraucher gestartet" << ENDL;
 	Packet* temp;
-	queue_ = QueueFactory::getQueue(MOTOR_GRIPPER_QUEUE_ID);
+	queue_ = QueueFactory::getQueue(MOTOR_QUEUE_ID);
 	// MotorMessage* message;
 	int var;
 	for (var = 0; var < 20; ++var) {
