@@ -31,11 +31,13 @@ void GripperThread::run() {
 				if (isGripperMessage(packet->getMessage())) {
 					message = (GripperMessage*) packet->getMessage();
 					handleOnMessage(message);
+					delete message;
+					message = NULL;
 				} else {
 					COUT<< "Gripper: not my message" << ENDL;
+					delete packet->getMessage();
+					packet->setMessage(NULL);
 				}
-				delete message;
-				message = NULL;
 			} else {
 				COUT << "Gripper: Message is null" << ENDL;
 			}

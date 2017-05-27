@@ -22,7 +22,7 @@ void Producer::run(){
 	Packet* temp;
 	queue_ = QueueFactory::getQueue(MOTOR_QUEUE_ID);
 	for (var = 0; var < 20; ++var) {
-		temp = new Packet(MOTOR_QUEUE_ID,1,new MotorMessage());
+//		temp = new Packet(MOTOR_QUEUE_ID,1,new MotorMessage());
 		queue_->enqueue(temp);
 		temp = new Packet(MOTOR_QUEUE_ID,1,new GripperMessage());
 				queue_->enqueue(temp);
