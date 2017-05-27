@@ -63,6 +63,8 @@ void MotorThread::handleOnMessage(MotorMessage* message) {
 		break;
 	case MOTOR_ROTATE_TO_RELATIVE_DEGREE:
 		break;
+	case MOTOR_REST:
+		break;
 	case MOTOR_STOP:
 		break;
 	case MOTOR_RESET:
