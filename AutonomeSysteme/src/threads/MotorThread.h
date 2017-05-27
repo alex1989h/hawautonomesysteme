@@ -7,7 +7,7 @@
 
 #ifndef THREADS_MOTORTHREAD_H_
 #define THREADS_MOTORTHREAD_H_
-#include "../ipc/Packet.h"
+#include "../ipc/messages/MotorMessage.h"
 #include "MyThread.h"
 #include <typeinfo>
 
@@ -17,7 +17,8 @@ public:
 	virtual ~MotorThread();
 private:
 	void run(void);
-	bool isMotorMessage(Packet* packet);
+	bool isMotorMessage(const Message* message);
+	void handleOnMessage(MotorMessage* message);
 };
 
 #endif /* THREADS_MOTORTHREAD_H_ */

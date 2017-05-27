@@ -7,25 +7,22 @@
 
 #include "MotorMessage.h"
 
-MotorMessage::MotorMessage():leftSpeed_(0),rightSpeed_(0){
+MotorMessage::MotorMessage(MotorCommand command, int speed, int degree) :
+		command_(command), speed_(speed), degree_(degree) {
+
 }
 
 MotorMessage::~MotorMessage() {
 	// TODO Auto-generated destructor stub
 }
-
-int MotorMessage::getLeftSpeed() const {
-	return leftSpeed_;
+MotorCommand MotorMessage::getCommand() const {
+	return command_;
 }
 
-void MotorMessage::setLeftSpeed(int leftSpeed) {
-	leftSpeed_ = leftSpeed;
+int MotorMessage::getDegree() const {
+	return degree_;
 }
 
-int MotorMessage::getRightSpeed() const {
-	return rightSpeed_;
-}
-
-void MotorMessage::setRightSpeed(int rightSpeed) {
-	rightSpeed_ = rightSpeed;
+int MotorMessage::getSpeed() const {
+	return speed_;
 }
