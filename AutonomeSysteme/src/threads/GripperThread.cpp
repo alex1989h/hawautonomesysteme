@@ -34,9 +34,13 @@ void GripperThread::run() {
 				} else {
 					COUT<< "Gripper: not my message" << ENDL;
 				}
+				delete message;
+				message = NULL;
 			} else {
 				COUT << "Gripper: Message is null" << ENDL;
 			}
+			delete packet;
+			packet = NULL;
 		} else {
 			COUT << "Gripper: Packet is null" << ENDL;
 		}
@@ -59,10 +63,10 @@ void GripperThread::handleOnMessage(GripperMessage* message) {
 		HAL::getGripperHAL().moveVerticalToDegree(message->getDegree());
 		break;
 	case GRIPPER_MOVE_HORIZONTAL_RELATIVE:
-		HAL::getGripperHAL().moveHorizontalToDegree(HAL::getGripperHAL().getHorizontalDegree()+message->getDegree());
+		HAL::getGripperHAL().moveHorizontalToDegree(HAL::getGripperHAL().getHorizontalDegree() + message->getDegree());
 		break;
-	case GRIPPER_MOVE_HORIZONTAL_RELATIVE:
-		HAL::getGripperHAL().moveVerticalToDegree(HAL::getGripperHAL().getVerticalDegree()+message->getDegree());
+	case GRIPPER_MOVE_VERTICAL_RELATIVE:
+		HAL::getGripperHAL().moveVerticalToDegree(HAL::getGripperHAL().getVerticalDegree() + message->getDegree());
 		break;
 	case GRIPPER_STOP_HORIZONTAL:
 		HAL::getGripperHAL().stopHorizontal();
@@ -74,7 +78,7 @@ void GripperThread::handleOnMessage(GripperMessage* message) {
 		HAL::getGripperHAL().stop();
 		break;
 	default:
-		COUT << "Gripper: unknown command" << ENDL;
+		COUT<< "Gripper: unknown command" << ENDL;
 		break;
 	}
 }

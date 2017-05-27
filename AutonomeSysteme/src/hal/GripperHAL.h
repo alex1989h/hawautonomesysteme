@@ -19,7 +19,13 @@ public:
 		return instance;
 	}
 private:
+	/**
+	 * Constructor
+	 */
 	GripperHAL();
+	/**
+	 * Destructor
+	 */
 	virtual ~GripperHAL();
 public:
 	void moveUp();
@@ -66,6 +72,11 @@ public:
 private:
 	int horizontalDegree_;
 	int verticalDegree_;
+	/**
+	 * This function convert degree in for GripperHAL needed range
+	 * @param degree
+	 * @return
+	 */
 	int convertDegree(int degree);
 };
 

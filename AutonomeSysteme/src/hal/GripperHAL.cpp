@@ -17,7 +17,11 @@
 #define HORIZONTAL_DEFAULT_DEGREE 90
 #define VERTICAL_DEFAULT_DEGREE 0
 
-GripperHAL::GripperHAL() {
+#define IN_HORIZONTAL_LIMITS(DEGREE) 0 <= DEGREE && DEGREE <= 180
+#define IN_VERTICAL_LIMITS(DEGREE) 0 <= DEGREE && DEGREE <= 90
+
+GripperHAL::GripperHAL() :
+		horizontalDegree_(HORIZONTAL_DEFAULT_DEGREE), verticalDegree_(VERTICAL_DEFAULT_DEGREE) {
 	wiringPiSetup();
 	pwmSetClock(DIVISOR);
 	pwmSetRange(RANGE);
@@ -39,11 +43,17 @@ int GripperHAL::convertDegree(int degree) {
 }
 
 void GripperHAL::moveVerticalToDegree(int degree) {
-	pwmWrite(VERICAL_PWM2, convertDegree(degree));
+	if(IN_VERTICAL_LIMITS(degree)){
+		verticalDegree_ = degree;
+		pwmWrite(VERICAL_PWM2, convertDegree(degree));
+	}
 }
 
 void GripperHAL::moveHorizontalToDegree(int degree) {
-	pwmWrite(HORIZONTAL_PWM3, convertDegree(degree));
+	if(IN_HORIZONTAL_LIMITS(degree)){
+		horizontalDegree_ = degree;
+		pwmWrite(HORIZONTAL_PWM3, convertDegree(degree));
+	}
 }
 
 void GripperHAL::stopVertical() {
