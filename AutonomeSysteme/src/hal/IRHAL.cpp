@@ -40,3 +40,25 @@ int IRHAL::getDistanceLeft() {
 int IRHAL::getDistanceCenter() {
 	return I2CController::getInstance().getADConverter().getDistanceAdc2();
 }
+
+/**
+ * Pre: ein Integer der einen ADC-WERT repäsentiert.(376-1380)
+ * Post: ein Distanz zwischen 4-41cm oder -1 bei einem ungültigen Einganswert.
+ */
+int IRHAL::adcValueToDistance(int value) {
+    double result = -1;
+    if (value < 146 || value > 1380) {
+        result = -1;
+    } else {
+        long double dvalue = (value * 2) / 1000.0;
+        long double result5, result4, result3, result2, result1;
+        result5 = (-3.7073 * pow(dvalue, 5));
+        result4 = (32.718 * pow(dvalue, 4));
+        result3 = (-113.2 * pow(dvalue, 3));
+        result2 = (195.15 * pow(dvalue, 2));
+        result1 = (-175.93 * dvalue);
+        result = round(
+                       (result5 + result4 + result3 + result2 + result1 + 77.892));
+    }
+    return result;
+}

@@ -24,6 +24,7 @@ public:
 	int getDistanceRight();
 	int getDistanceLeft();
 	int getDistanceCenter();
+    int adcValueToDistance(int value);
 };
 
 #endif /* HAL_IRHAL_H_ */
