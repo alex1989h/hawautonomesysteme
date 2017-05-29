@@ -7,11 +7,12 @@
 
 #include "GripperHAL.h"
 #include <wiringPi.h>
+#include "../logger/Logger.h"
 #define DIVISOR 1450
 #define RANGE 1024
-#define DEGREE_180 180
-#define LEFT_RANGE_LIMIT 25
-#define RIGHT_RANGE_LIMIT 120
+#define DEGREE_180 180.0
+#define LEFT_RANGE_LIMIT 24
+#define RIGHT_RANGE_LIMIT 118
 #define HORIZONTAL_PWM3 26
 #define VERICAL_PWM2 23
 #define HORIZONTAL_DEFAULT_DEGREE 90
@@ -22,12 +23,14 @@
 
 GripperHAL::GripperHAL() :
 		horizontalDegree_(HORIZONTAL_DEFAULT_DEGREE), verticalDegree_(VERTICAL_DEFAULT_DEGREE) {
+	COUT << "Constructor:GripperHAL" << ENDL;
 	wiringPiSetup();
-	pwmSetClock(DIVISOR);
-	pwmSetRange(RANGE);
 
 	pinMode(HORIZONTAL_PWM3, PWM_OUTPUT);
 	pinMode(VERICAL_PWM2, PWM_OUTPUT);
+
+	pwmSetClock(DIVISOR);
+	pwmSetRange(RANGE);
 
 	pwmWrite(HORIZONTAL_PWM3, convertDegree(HORIZONTAL_DEFAULT_DEGREE));
 	pwmWrite(VERICAL_PWM2, convertDegree(VERTICAL_DEFAULT_DEGREE));
@@ -38,8 +41,7 @@ GripperHAL::~GripperHAL() {
 }
 
 int GripperHAL::convertDegree(int degree) {
-	return (int) ((((RIGHT_RANGE_LIMIT - LEFT_RANGE_LIMIT) / DEGREE_180)
-			* degree) + LEFT_RANGE_LIMIT);
+	return (int) ((((RIGHT_RANGE_LIMIT - LEFT_RANGE_LIMIT) / DEGREE_180) * degree) + LEFT_RANGE_LIMIT);
 }
 
 void GripperHAL::moveVerticalToDegree(int degree) {
@@ -52,7 +54,9 @@ void GripperHAL::moveVerticalToDegree(int degree) {
 void GripperHAL::moveHorizontalToDegree(int degree) {
 	if(IN_HORIZONTAL_LIMITS(degree)){
 		horizontalDegree_ = degree;
-		pwmWrite(HORIZONTAL_PWM3, convertDegree(degree));
+		int temp = convertDegree(degree);
+				COUT <<"HAL: "<< temp << ENDL;
+		pwmWrite(HORIZONTAL_PWM3, temp);
 	}
 }
 

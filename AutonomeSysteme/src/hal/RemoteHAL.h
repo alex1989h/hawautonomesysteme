@@ -87,8 +87,8 @@ public:
 
 private:
 	RemoteHAL();
-	static struct timespec interruptArrival[8];
-	static long pulseWidth[8];
+	static struct timespec interruptArrival[9];
+	static long pulseWidth[9];
 
 	static void risingEdgeInterruptChannel1();
 	static void risingEdgeInterruptChannel2();

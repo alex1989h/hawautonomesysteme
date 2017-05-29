@@ -27,7 +27,10 @@ int main() {
 //		HAL::getMotorHAL().move(HAL::getRemoteHAL().getValueChannel2(), HAL::getRemoteHAL().getValueChannel3());
 //	}
 	RemoteThread remoteThread;
+	GripperThread gripperThread;
 	remoteThread.start();
+	gripperThread.start();
 	remoteThread.join();
+	gripperThread.join();
 	return 0;
 }

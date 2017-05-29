@@ -6,8 +6,9 @@
  */
 
 #include "RemoteHAL.h"
+#define IN_LIMITS(VALUE) (900*1000) <= VALUE && VALUE <= (2100*1000)
 
-vector<timespec> interruptArrival(7);
+//vector<timespec> interruptArrival(7);
 
 RemoteHAL::RemoteHAL() {
 	wiringPiSetup();
@@ -27,8 +28,8 @@ RemoteHAL::~RemoteHAL() {
 	// TODO Auto-generated destructor stub
 }
 
-struct timespec RemoteHAL::interruptArrival[8];
-long RemoteHAL::pulseWidth[8];
+struct timespec RemoteHAL::interruptArrival[9];
+long RemoteHAL::pulseWidth[9];
 
 void RemoteHAL::risingEdgeInterruptChannel1() {
 	clock_gettime(CLOCK_REALTIME, &interruptArrival[0]);
@@ -47,9 +48,7 @@ void RemoteHAL::risingEdgeInterruptChannel4() {
 }
 
 void RemoteHAL::fallingEdgeInterruptChannel4() {
-	struct timespec arrrival;
-	clock_gettime(CLOCK_REALTIME, &arrrival);
-	pulseWidth[3] = (arrrival.tv_nsec - interruptArrival[3].tv_nsec);
+	refreshPulseWidth(4,3);
 }
 
 void RemoteHAL::risingEdgeInterruptChannel5() {
@@ -65,14 +64,15 @@ void RemoteHAL::risingEdgeInterruptChannel7() {
 }
 
 void RemoteHAL::fallingEdgeInterruptChannel7() {
-	struct timespec arrrival;
-	clock_gettime(CLOCK_REALTIME, &arrrival);
-	pulseWidth[7] = (arrrival.tv_nsec - interruptArrival[6].tv_nsec);
+	refreshPulseWidth(8,7);
 }
 
 void RemoteHAL::refreshPulseWidth(uint8_t current_interrupt, uint8_t last_interrupt){
 	clock_gettime(CLOCK_REALTIME, &interruptArrival[current_interrupt]);
-	pulseWidth[last_interrupt] = interruptArrival[current_interrupt].tv_nsec - interruptArrival[last_interrupt].tv_nsec;
+	long temp = interruptArrival[current_interrupt].tv_nsec - interruptArrival[last_interrupt].tv_nsec;
+	if(IN_LIMITS(temp)){
+		pulseWidth[last_interrupt] = temp;
+	}
 }
 
 long RemoteHAL::getTime(uint8_t index) const{

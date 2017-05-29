@@ -57,6 +57,7 @@ bool GripperThread::isGripperMessage(const Message* message) {
 }
 
 void GripperThread::handleOnMessage(GripperMessage* message) {
+	int degree = 0;
 	switch (message->getCommand()) {
 	case GRIPPER_MOVE_HORIZONTAL_ABSOLUT:
 		HAL::getGripperHAL().moveHorizontalToDegree(message->getDegree());
@@ -65,9 +66,13 @@ void GripperThread::handleOnMessage(GripperMessage* message) {
 		HAL::getGripperHAL().moveVerticalToDegree(message->getDegree());
 		break;
 	case GRIPPER_MOVE_HORIZONTAL_RELATIVE:
-		HAL::getGripperHAL().moveHorizontalToDegree(HAL::getGripperHAL().getHorizontalDegree() + message->getDegree());
+		degree = message->getDegree();
+		COUT<< HAL::getGripperHAL().getHorizontalDegree()<<"\t";
+		COUT << degree<<"\t";
+		COUT << HAL::getGripperHAL().getHorizontalDegree() + degree << ENDL;
+		HAL::getGripperHAL().moveHorizontalToDegree(HAL::getGripperHAL().getHorizontalDegree() + degree);
 		break;
-	case GRIPPER_MOVE_VERTICAL_RELATIVE:
+		case GRIPPER_MOVE_VERTICAL_RELATIVE:
 		HAL::getGripperHAL().moveVerticalToDegree(HAL::getGripperHAL().getVerticalDegree() + message->getDegree());
 		break;
 	case GRIPPER_STOP_HORIZONTAL:
