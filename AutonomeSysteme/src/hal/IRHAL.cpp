@@ -7,7 +7,7 @@
 
 #include "IRHAL.h"
 #include "i2c/I2CController.h"
-
+#include <math.h>
 IRHAL::IRHAL() {
 	// TODO Auto-generated constructor stub
 
