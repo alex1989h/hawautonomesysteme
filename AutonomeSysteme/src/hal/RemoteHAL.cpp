@@ -31,8 +31,12 @@ RemoteHAL::~RemoteHAL() {
 struct timespec RemoteHAL::interruptArrival[9];
 long RemoteHAL::pulseWidth[9];
 
+unsigned int RemoteHAL::times[9];
+unsigned int RemoteHAL::widths[9];
+
 void RemoteHAL::risingEdgeInterruptChannel1() {
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[0]);
+	times[0] = micros();
+	//clock_gettime(CLOCK_REALTIME, &interruptArrival[0]);
 }
 
 void RemoteHAL::risingEdgeInterruptChannel2() {
@@ -52,7 +56,8 @@ void RemoteHAL::fallingEdgeInterruptChannel4() {
 }
 
 void RemoteHAL::risingEdgeInterruptChannel5() {
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[5]);
+	time[5] = micros();
+	//clock_gettime(CLOCK_REALTIME, &interruptArrival[5]);
 }
 
 void RemoteHAL::risingEdgeInterruptChannel6() {
@@ -68,11 +73,13 @@ void RemoteHAL::fallingEdgeInterruptChannel7() {
 }
 
 void RemoteHAL::refreshPulseWidth(uint8_t current_interrupt, uint8_t last_interrupt){
-	clock_gettime(CLOCK_REALTIME, &interruptArrival[current_interrupt]);
-	long temp = interruptArrival[current_interrupt].tv_nsec - interruptArrival[last_interrupt].tv_nsec;
-	if(IN_LIMITS(temp)){
-		pulseWidth[last_interrupt] = temp;
-	}
+	times[current_interrupt] = micros();
+	widths[last_interrupt] = times[current_interrupt] - times[last_interrupt];
+//	clock_gettime(CLOCK_REALTIME, &interruptArrival[current_interrupt]);
+//	long temp = interruptArrival[current_interrupt].tv_nsec - interruptArrival[last_interrupt].tv_nsec;
+//	if(IN_LIMITS(temp)){
+//		pulseWidth[last_interrupt] = temp;
+//	}
 }
 
 long RemoteHAL::getTime(uint8_t index) const{

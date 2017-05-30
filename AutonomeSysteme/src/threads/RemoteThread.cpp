@@ -31,13 +31,12 @@ void RemoteThread::run() {
 	Queue* gripperQueue = QueueFactory::getQueue(GRIPPER_QUEUE_ID);
 	MotorMessage* motorMessage = NULL;
 	GripperMessage* message2 = NULL;
-	int degree[SIZE] = {};
+	long degree[SIZE] = {};
 	for (var = 0; var < SIZE; ++var) {
 		degree[var] = DEFAULT;
 	}
-	int degreeSum = 0;
+	long degreeSum = 0;
 	int counter = 0;
-	int right = 0, left = 0;
 	while (!isInterrupted()) {
 
 //		right = HAL::getRemoteHAL().getValueChannel2() / 1000;
@@ -84,14 +83,14 @@ void RemoteThread::run() {
 			counter = 0;
 
 		}
-		if(degreeSum > 1900000){
-			degreeSum -= 1500000;
-			degreeSum/= 100000;
+		if(degreeSum > 1900 && degreeSum < 2100){
+			degreeSum -= 1500;
+			degreeSum/= 100;
 			gripperQueue->enqueue(new Packet(MOTOR_QUEUE_ID,GRIPPER_QUEUE_ID,new GripperMessage(GRIPPER_MOVE_HORIZONTAL_RELATIVE,-1)));
 
-		}else if(degreeSum < 1100000){
-			degreeSum -= 1500000;
-			degreeSum/= 100000;
+		}else if(degreeSum < 1100 && degreeSum > 900){
+			degreeSum -= 1500;
+			degreeSum/= 100;
 			gripperQueue->enqueue(new Packet(MOTOR_QUEUE_ID,GRIPPER_QUEUE_ID,new GripperMessage(GRIPPER_MOVE_HORIZONTAL_RELATIVE,1)));
 
 		}
