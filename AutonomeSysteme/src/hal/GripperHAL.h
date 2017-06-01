@@ -72,6 +72,8 @@ public:
 private:
 	int horizontalDegree_;
 	int verticalDegree_;
+	int horizontalRange_;
+	int verticaltRange_;
 	/**
 	 * This function convert degree in for GripperHAL needed range
 	 * @param degree

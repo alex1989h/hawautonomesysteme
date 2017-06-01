@@ -56,7 +56,7 @@ void RemoteHAL::fallingEdgeInterruptChannel4() {
 }
 
 void RemoteHAL::risingEdgeInterruptChannel5() {
-	time[5] = micros();
+	times[5] = micros();
 	//clock_gettime(CLOCK_REALTIME, &interruptArrival[5]);
 }
 
