@@ -1,7 +1,6 @@
 #include "RemoteControl.h"
 
 uint16_t RemoteControl::channels[max_channels];
-uint16_t RemoteControl::channel_offsets[max_channels];
 
 uint8_t RemoteControl::autonomousButton = 1;
 uint8_t RemoteControl::stopButton = 1;
@@ -13,7 +12,7 @@ RemoteControl::RemoteControl(){
 RemoteControl::~RemoteControl(){
 
 }
-
+// TODO: refactor
 void RemoteControl::updateChannels(){
   static uint8_t button_pin = joystick_channels+start_pin;
   // Read all 4 joystick channels
@@ -49,21 +48,5 @@ uint8_t RemoteControl::getButtonState(uint16_t channel){
     return low_state;
   } else {
     return normal_state;
-  }
-}
-
-void RemoteControl::calibrate(){
-  for(uint8_t pin = start_pin; pin < max_channels+start_pin; pin++){
-    pinMode(pin, INPUT);
-
-    int count = 10;
-    for(uint8_t i = 0; i < max_channels; i++){
-      channel_offsets[pin-start_pin] += pulseIn(pin, HIGH);
-    }
-    channel_offsets[pin-start_pin] /= count;
-    Serial.print("Channel");
-    Serial.print(pin+1-start_pin);
-    Serial.print(": ");
-    Serial.println(channel_offsets[pin-start_pin]);
   }
 }
