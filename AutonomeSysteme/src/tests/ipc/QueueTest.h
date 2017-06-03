@@ -9,4 +9,5 @@
 #define TESTS_IPC_QUEUETEST_H_
 
 void testQueue(void);
+void testMotortFsm(void);
 #endif /* TESTS_IPC_QUEUETEST_H_ */
