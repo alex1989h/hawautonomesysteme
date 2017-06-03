@@ -11,9 +11,9 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <vector>
 #include <string.h>
 #include <wiringPi.h>
+#include "i2c/I2CController.h"
 using namespace std;
 
 class RemoteHAL {
@@ -33,7 +33,8 @@ public:
 	 * @return The pulse width in microseconds.
 	 */
 	long getValueChannel1() {
-		return widths[0];
+		return I2CController::getInstance().getArduino().channel_value[0];
+		//return widths[0];
 		//return pulseWidth[0];
 	}
 
@@ -42,7 +43,8 @@ public:
 	 * @return The pulse width in microseconds.
 	 */
 	long getValueChannel2() {
-		return widths[1];
+		return I2CController::getInstance().getArduino().channel_value[1];
+		//return widths[1];
 		//return pulseWidth[1];
 	}
 
@@ -51,7 +53,8 @@ public:
 	 * @return The pulse width in microseconds.
 	 */
 	long getValueChannel3() {
-		return widths[2];
+		return I2CController::getInstance().getArduino().channel_value[2];
+		//return widths[2];
 		//return pulseWidth[2];
 	}
 
@@ -60,7 +63,8 @@ public:
 	 * @return The pulse width in microseconds.
 	 */
 	long getValueChannel4() {
-		return widths[3];
+		return I2CController::getInstance().getArduino().channel_value[3];
+		//return widths[3];
 		//return pulseWidth[3];
 	}
 
@@ -69,7 +73,8 @@ public:
 	 * @return The pulse width in microseconds.
 	 */
 	long getValueChannel5() {
-		return widths[5];
+		return I2CController::getInstance().getArduino().channel_value[4];
+		//return widths[5];
 		//return pulseWidth[4];
 	}
 
@@ -78,7 +83,8 @@ public:
 	 * @return The pulse width in microseconds.
 	 */
 	long getValueChannel6() {
-		return widths[6];
+		return I2CController::getInstance().getArduino().channel_value[5];
+		//return widths[6];
 		//return pulseWidth[5];
 	}
 
@@ -87,7 +93,8 @@ public:
 	 * @return The pulse width in microseconds.
 	 */
 	long getValueChannel7() {
-		return widths[7];
+		return I2CController::getInstance().getArduino().channel_value[6];
+		//return widths[7];
 		//return pulseWidth[6];
 	}
 

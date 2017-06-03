@@ -11,6 +11,7 @@
 //vector<timespec> interruptArrival(7);
 
 RemoteHAL::RemoteHAL() {
+	/*
 	wiringPiSetup();
 	wiringPiISR(15, INT_EDGE_RISING, &RemoteHAL::risingEdgeInterruptChannel1);
 	wiringPiISR(16, INT_EDGE_RISING, &RemoteHAL::risingEdgeInterruptChannel2);
@@ -21,7 +22,7 @@ RemoteHAL::RemoteHAL() {
 	wiringPiISR(6, INT_EDGE_RISING, &RemoteHAL::risingEdgeInterruptChannel5);
 	wiringPiISR(27, INT_EDGE_RISING, &RemoteHAL::risingEdgeInterruptChannel6);
 	wiringPiISR(28, INT_EDGE_RISING, &RemoteHAL::risingEdgeInterruptChannel7);
-	wiringPiISR(29, INT_EDGE_FALLING, &RemoteHAL::fallingEdgeInterruptChannel7);
+	wiringPiISR(29, INT_EDGE_FALLING, &RemoteHAL::fallingEdgeInterruptChannel7);*/
 }
 
 RemoteHAL::~RemoteHAL() {
@@ -56,7 +57,7 @@ void RemoteHAL::fallingEdgeInterruptChannel4() {
 }
 
 void RemoteHAL::risingEdgeInterruptChannel5() {
-	time[5] = micros();
+	times[5] = micros();
 	//clock_gettime(CLOCK_REALTIME, &interruptArrival[5]);
 }
 

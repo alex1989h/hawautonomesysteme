@@ -24,7 +24,7 @@
  */
 ADS1015::ADS1015(uint8_t address) :
 		address(address) {
-	fd = wiringPiI2CSetup(0x48);
+	fd = wiringPiI2CSetup(address);
 	if (fd == -1) {
 		// TODO: Add initialization error to logger
 	} else {
@@ -77,21 +77,21 @@ int16_t ADS1015::getValueFromADC(uint16_t adc) {
 /**
  * Refresh A/D-Converter 0's converted voltage.
  */
-void ADS1015::refresh_ADC_0() {
+void ADS1015::update_ADC_0() {
 	distance_ADC_0 = getValueFromADC(ADS1015_MUX_ADC_0);
 }
 
 /**
  * Refresh A/D-Converter 1's converted voltage.
  */
-void ADS1015::refresh_ADC_1() {
+void ADS1015::update_ADC_1() {
 	distance_ADC_1 = getValueFromADC(ADS1015_MUX_ADC_1);
 }
 
 /**
  * Refresh A/D-Converter 2's converted voltage.
  */
-void ADS1015::refresh_ADC_2() {
+void ADS1015::update_ADC_2() {
 	distance_ADC_2 = getValueFromADC(ADS1015_MUX_ADC_2);
 }
 

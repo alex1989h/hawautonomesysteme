@@ -16,8 +16,8 @@ I2CController::I2CController():
 	frontRightUltrasonic(0x70, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
 	rearLeftUltrasonic(0x72, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
 	rearRightUltrasonic(0x73, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
-
-	A_D_Converter(0x48)
+	A_D_Converter(0x48),
+	arduino(0x08)
 {
 
 	thread i2c_bus(I2CController::run, this);
@@ -27,20 +27,20 @@ I2CController::~I2CController() {
 	// TODO Auto-generated destructor stub
 }
 
-void I2CController::run(I2CController* controller){
+void I2CController::run(I2CController* controller) {
 
-	while(true){
+	while (true) {
 		// TODO update sensor data and contol motor
-		controller->A_D_Converter.refresh_ADC_0();
-		controller->A_D_Converter.refresh_ADC_1();
-		controller->A_D_Converter.refresh_ADC_2();
+		controller->A_D_Converter.update_ADC_0();
+		controller->A_D_Converter.update_ADC_1();
+		controller->A_D_Converter.update_ADC_2();
 
-		controller->frontLeftUltrasonic.refreshDistance();
-		controller->rearRightUltrasonic.refreshDistance();
-		controller->frontRightUltrasonic.refreshDistance();
-		controller->rearLeftUltrasonic.refreshDistance();
+		controller->frontLeftUltrasonic.updateDistance();
+		controller->rearRightUltrasonic.updateDistance();
+		controller->frontRightUltrasonic.updateDistance();
+		controller->rearLeftUltrasonic.updateDistance();
+
+		controller->arduino.updateChannelValues();
 	}
 }
-
-
 
