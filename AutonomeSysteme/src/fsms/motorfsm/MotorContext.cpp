@@ -28,7 +28,7 @@ int MotorContext::motorStopTransition() {
 	return state_->motorStopTransition();
 }
 int MotorContext::motorRunAgainTransition() {
-	return motorRunAgainTransition();
+	return state_->motorRunAgainTransition();
 }
 int MotorContext::motorResetTransition() {
 	return state_->motorResetTransition();
