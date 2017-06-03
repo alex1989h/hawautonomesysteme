@@ -3,6 +3,9 @@
 uint16_t RemoteControl::channels[max_channels];
 uint16_t RemoteControl::channel_offsets[max_channels];
 
+uint8_t RemoteControl::autonomousButton = 1;
+uint8_t RemoteControl::stopButton = 1;
+
 RemoteControl::RemoteControl(){
 
 }
@@ -24,6 +27,28 @@ void RemoteControl::updateChannels(){
     button_pin = joystick_channels+start_pin;
   } else {
     button_pin++;
+  }
+
+  switch(button_pin){
+    case start_pin+4:
+      stopButton = getButtonState(channels[button_pin-start_pin]);
+      break;
+    case start_pin+5:
+      autonomousButton = getButtonState(channels[button_pin-start_pin]);
+      break;
+    default:
+      ;// do nothing
+  }
+}
+
+
+uint8_t RemoteControl::getButtonState(uint16_t channel){
+  if (channel > 1800){
+    return high_state;
+  } else if (channel < 1200){
+    return low_state;
+  } else {
+    return normal_state;
   }
 }
 
