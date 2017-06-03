@@ -14,13 +14,13 @@ public:
 	virtual ~MotorContext();
 private:
 	MotorAState* state_;
+public:
 	int motorMoveTransition(int speed);
 	int motorRotateTransition(int speed);
 	int motorRestTransition(void);
 	int motorStopTransition(void);
 	int motorRunAgainTransition(void);
 	int motorResetTransition(void);
-public:
 	void setState(MotorAState* state);
 	MotorContent* getMotorContent(void);
 };
