@@ -39,15 +39,9 @@ void Motor::updateMotors(uint16_t horizontal, uint16_t vertical) {
     }
   }
 
-  digitalWrite(left_direction_pin,  left_speed > 0);
-  digitalWrite(right_direction_pin, right_speed < 0);
+  controlLeftMotor(abs(left_speed), left_speed > 0);
+  controlRightMotor(abs(right_speed), right_speed > 0);
 
-  if (left_speed < threshold) left_speed = 0;
-
-  if (right_speed < threshold) right_speed = 0;
-
-  analogWrite(left_pwm_pin,  abs(left_speed));
-  analogWrite(right_pwm_pin, abs(right_speed));
 }
 
 // bad approximation of hypotenuse

@@ -27,7 +27,7 @@ void requestEvent() {        // master is reading/requesting
 // 3: left motor speed
 // 4: right motor speed
 void receiveEvent(int byteConut) {       // master is writing
-  int reg                 = Wire.read(); // receive register to write into
+  uint8_t reg             = Wire.read(); // receive register to write into
   uint8_t both_directions = Wire.read();
   uint8_t left_direction  = (both_directions >> 1) & 1;
   uint8_t right_direction = both_directions & 1;
@@ -39,7 +39,7 @@ void receiveEvent(int byteConut) {       // master is writing
 }
 
 void setup() {
-  Wire.begin(8);                // join i2c bus with address #8
+  Wire.begin(0x08);             // join i2c bus with address #0x08
   Wire.onReceive(receiveEvent); // register event
   Wire.onRequest(requestEvent); // register event
 

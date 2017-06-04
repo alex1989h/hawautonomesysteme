@@ -41,6 +41,7 @@ void I2CController::run(I2CController* controller) {
 		controller->rearLeftUltrasonic.updateDistance();
 
 		controller->arduino.updateChannelValues();
+		controller->arduino.updateMotors();
 	}
 }
 
