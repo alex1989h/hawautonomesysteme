@@ -7,37 +7,35 @@
 #define MAX_READ_REGISTERS 7
 #define MAX_WRITE_REGISTERS 2
 
-Motor left_motor(2, 9, 10, Motor::left);
-Motor right_motor(3, 11, 12, Motor::right);
+Motor motors(9, 11, 10, 12);
 
 // 0 - 6 : Channel1 - Channel7
 // (7 - 8 : left and right Encoder)
-void requestEvent() { // master is reading/requesting
+void requestEvent() {        // master is reading/requesting
   uint8_t reg = Wire.read(); // receive register to read from
-  if(reg < MAX_READ_REGISTERS){
-    uint16_t value = RemoteControl::getChannelByNumber(reg+1);
-    Wire.write((uint8_t) (value >> 8)); // write msb
-    Wire.write((uint8_t) value);   // write lsb
+
+  if (reg < MAX_READ_REGISTERS) {
+    uint16_t value = RemoteControl::getChannelByNumber(reg + 1);
+    Wire.write((uint8_t)(value >> 8)); // write msb
+    Wire.write((uint8_t)value);        // write lsb
   }
 }
 
-// 0 : left motor - high byte: direction - low byte: motor speed
-// 1 : right motor - high byte: direction - low byte: motor speed
-void receiveEvent(int byteConut) { // master is writing
-  int reg = Wire.read();    // receive register to write into
+// 4 Bytes received
+// 1: register
+// 2: 0000 00XY : X = left motor direction - Y = right motor direction
+// 3: left motor speed
+// 4: right motor speed
+void receiveEvent(int byteConut) {       // master is writing
+  int reg                 = Wire.read(); // receive register to write into
+  uint8_t both_directions = Wire.read();
+  uint8_t left_direction  = (both_directions >> 1) & 1;
+  uint8_t right_direction = both_directions & 1;
+  uint8_t left_speed      = Wire.read();
+  uint8_t right_speed     = Wire.read();
 
-  switch(reg){
-    case 0: // left motor
-      left_motor.setSpeed(Wire.read());
-      left_motor.setDirection(Wire.read());
-      break;
-    case 1: // right motor
-      right_motor.setSpeed(Wire.read());
-      right_motor.setDirection(Wire.read());
-      break;
-    default:; // do nothing
-  }
-
+  motors.controlLeftMotor(left_speed, left_direction);
+  motors.controlRightMotor(right_speed, right_direction);
 }
 
 void setup() {
@@ -50,8 +48,9 @@ void setup() {
 
 void loop() {
   RemoteControl::updateChannels();
-  left_motor.updateSpeed();
-  right_motor.updateSpeed();
+
+  motors.updateMotors(RemoteControl::getChannelByNumber(2)
+                      , RemoteControl::getChannelByNumber(4));
 
   delay(100);
 }
