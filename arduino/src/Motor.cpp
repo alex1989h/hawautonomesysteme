@@ -27,7 +27,7 @@ void Motor::updateMotors(uint16_t horizontal, uint16_t vertical) {
 
   uint8_t left_pwm = map (abs(left_speed), 0, 100, 0, 255);
   uint8_t right_pwm = map (abs(right_speed), 0, 100, 0, 255);
-  Serial.println(left_pwm);
+
   controlLeftMotor(abs(left_pwm), left_speed > 0);
   controlRightMotor(abs(right_pwm), right_speed > 0);
 }

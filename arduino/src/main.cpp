@@ -9,16 +9,19 @@
 
 Motor motors(9, 11, 10, 12);
 
+uint8_t reg;
+uint8_t i2c_byteCount;
+
+
 // 0 - 6 : Channel1 - Channel7
 // (7 - 8 : left and right Encoder)
-void requestEvent() {        // master is reading/requesting
-  uint8_t reg = Wire.read(); // receive register to read from
+void requestEvent() {        // write to master
+  // Serial.println("Write to Master");
 
-  if (reg < MAX_READ_REGISTERS) {
-    uint16_t value = RemoteControl::getChannelByNumber(reg + 1);
-    Wire.write((uint8_t)(value >> 8)); // write msb
-    Wire.write((uint8_t)value);        // write lsb
-  }
+  uint16_t value = RemoteControl::getChannelByNumber(reg + 1);
+//  Serial.println(value);
+  Wire.write((uint8_t)value);        // write lsb
+  Wire.write((uint8_t)(value >> 8)); // write msb
 }
 
 // 4 Bytes received
@@ -26,16 +29,34 @@ void requestEvent() {        // master is reading/requesting
 // 2: 0000 00XY : X = left motor direction - Y = right motor direction
 // 3: left motor speed
 // 4: right motor speed
-void receiveEvent(int byteConut) {       // master is writing
-  uint8_t reg             = Wire.read(); // receive register to write into
-  uint8_t both_directions = Wire.read();
-  uint8_t left_direction  = (both_directions >> 1) & 1;
-  uint8_t right_direction = both_directions & 1;
-  uint8_t left_speed      = Wire.read();
-  uint8_t right_speed     = Wire.read();
+void receiveEvent(int byteCount) {       // master ist writing registers, save registers for requestEvent();
+  // Serial.println("Master requests channel");
+  if (byteCount == 1){
+    // Serial.println("One byte");
+    reg = Wire.read(); // receive register to read from
+  } else {
+    // Serial.print(byteCount);
+    uint8_t reg             = Wire.read();
+    uint8_t both_directions = Wire.read();
+    uint8_t left_speed      = Wire.read();
+    uint8_t right_speed     = Wire.read();
+    uint8_t left_direction  = (both_directions >> 1) & 1;
+    uint8_t right_direction = both_directions & 1;
 
-  motors.controlLeftMotor(left_speed, left_direction);
-  motors.controlRightMotor(right_speed, right_direction);
+    motors.controlLeftMotor(left_speed, left_direction);
+    motors.controlRightMotor(right_speed, right_direction);
+  }
+  uint8_t reg = Wire.read(); // receive register to read from
+  Serial.println(reg);
+/*
+  if (reg < MAX_READ_REGISTERS) {
+
+    uint16_t value = RemoteControl::getChannelByNumber(reg + 1);
+    Serial.println(value);
+    Wire.write((uint8_t)(value >> 8)); // write msb
+    Wire.write((uint8_t)value);        // write lsb
+  }*/
+
 }
 
 void setup() {
@@ -44,6 +65,7 @@ void setup() {
   Wire.onRequest(requestEvent); // register event
 
   Serial.begin(9600);
+  Serial.println("start");
 }
 
 void loop() {
@@ -52,5 +74,4 @@ void loop() {
   motors.updateMotors(RemoteControl::getChannelByNumber(4)
                       , RemoteControl::getChannelByNumber(2));
 
-  delay(100);
 }

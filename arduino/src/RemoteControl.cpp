@@ -19,6 +19,7 @@ void RemoteControl::updateChannels(){
   for(uint8_t pin = start_pin; pin < joystick_channels+start_pin; pin ++){
     channels[pin-start_pin] = pulseIn(pin, HIGH);
   }
+  // Send all channel_values to Slave;
   // Read buttons
   channels[button_pin-start_pin] = pulseIn(button_pin,HIGH);
   // only read one button per function call

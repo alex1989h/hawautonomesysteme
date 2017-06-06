@@ -21,6 +21,7 @@ public:
     return channels[channel - 1];
   }
 
+  static boolean interrupted;
   static void updateChannels();
   static void calibrate();
 
