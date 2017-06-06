@@ -33,7 +33,7 @@ public:
 	/**
 	 * Refresh the ultrasonic sensors measured distance.
 	 */
-	void refreshDistance(){
+	void updateDistance(){
 		distance = measureDistance();
 	}
 

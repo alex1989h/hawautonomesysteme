@@ -39,9 +39,9 @@ public:
 	virtual ~ADS1015();
 	void configure(uint16_t);
 
-	void refresh_ADC_0();
-	void refresh_ADC_1();
-	void refresh_ADC_2();
+	void update_ADC_0();
+	void update_ADC_1();
+	void update_ADC_2();
 	void refresh_ADC_3();
 
 	int16_t getDistanceAdc0() const;

@@ -10,6 +10,7 @@
 
 #include "ADS1015.h"
 #include "SRF10.h"
+#include "Arduino.h"
 
 class I2CController {
 public:
@@ -64,6 +65,14 @@ public:
 		return A_D_Converter;
 	}
 
+	/**
+	 * Get the Arduino
+	 * @return An Arduino instance.
+	 */
+	const Arduino& getArduino() const {
+		return arduino;
+	}
+
 private:
 	I2CController();
 	I2CController(I2CController const&);
@@ -74,6 +83,7 @@ private:
 	SRF10 rearLeftUltrasonic;
 	SRF10 rearRightUltrasonic;
 	ADS1015 A_D_Converter;
+	Arduino arduino;
 };
 
 #endif /* HAL_I2C_I2CCONTROLLER_H_ */

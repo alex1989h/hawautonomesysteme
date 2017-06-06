@@ -34,7 +34,7 @@ int IRHAL::getDistanceLeft() {
 }
 
 /**
- * Get the distance of the right IR-Sensor.
+ * Get the distance of the center IR-Sensor.
  * @return Distance of the sensor in millimeters.
  */
 int IRHAL::getDistanceCenter() {
