@@ -11,8 +11,9 @@
 #include "ADS1015.h"
 #include "SRF10.h"
 #include "Arduino.h"
+#include "../../threads/MyThread.h"
 
-class I2CController {
+class I2CController:public MyThread {
 public:
 	/**
 	 * This function is called to get an instance of the I2CController.
@@ -75,9 +76,8 @@ public:
 
 private:
 	I2CController();
-	I2CController(I2CController const&);
 	void operator=(I2CController const&);
-	static void run(I2CController*);
+	void run(void);
 	SRF10 frontLeftUltrasonic;
 	SRF10 frontRightUltrasonic;
 	SRF10 rearLeftUltrasonic;

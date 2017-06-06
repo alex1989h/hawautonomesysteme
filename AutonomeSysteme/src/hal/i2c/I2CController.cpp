@@ -20,28 +20,28 @@ I2CController::I2CController():
 	arduino(0x08)
 {
 
-	thread i2c_bus(I2CController::run, this);
+	//thread i2c_bus(I2CController::run, this);
 }
 
 I2CController::~I2CController() {
 	// TODO Auto-generated destructor stub
 }
 
-void I2CController::run(I2CController* controller) {
+void I2CController::run() {
 
 	while (true) {
 		// TODO update sensor data and contol motor
-		controller->A_D_Converter.update_ADC_0();
-		controller->A_D_Converter.update_ADC_1();
-		controller->A_D_Converter.update_ADC_2();
+		A_D_Converter.update_ADC_0();
+		A_D_Converter.update_ADC_1();
+		A_D_Converter.update_ADC_2();
 
-		controller->frontLeftUltrasonic.updateDistance();
-		controller->rearRightUltrasonic.updateDistance();
-		controller->frontRightUltrasonic.updateDistance();
-		controller->rearLeftUltrasonic.updateDistance();
+		frontLeftUltrasonic.updateDistance();
+		rearRightUltrasonic.updateDistance();
+		frontRightUltrasonic.updateDistance();
+		rearLeftUltrasonic.updateDistance();
 
-		controller->arduino.updateChannelValues();
-		controller->arduino.updateMotors();
+		arduino.updateChannelValues();
+		arduino.updateMotors();
 	}
 }
 

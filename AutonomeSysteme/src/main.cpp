@@ -26,10 +26,15 @@ int main() {
 //	while(true){
 //		HAL::getMotorHAL().move(HAL::getRemoteHAL().getValueChannel2(), HAL::getRemoteHAL().getValueChannel3());
 //	}
+	I2CController i2c = I2CController::getInstance();
 	RemoteThread remoteThread;
 	GripperThread gripperThread;
+
+	i2c.start();
 	remoteThread.start();
 	gripperThread.start();
+
+	i2c.join();
 	remoteThread.join();
 	gripperThread.join();
 	return 0;
