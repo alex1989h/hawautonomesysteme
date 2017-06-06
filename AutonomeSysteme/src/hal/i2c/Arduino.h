@@ -20,6 +20,7 @@ public:
 	void updateChannelValues();
 	void controlLeftMotor(uint8_t speed, uint8_t direction);
 	void controlRightMotor(uint8_t speed, uint8_t direction);
+	void updateMotors();
 private:
 
 	uint8_t left_speed;
@@ -31,7 +32,6 @@ private:
 	const uint8_t address;
 	int32_t fd;
 
-	void updateMotors();
 };
 
 #endif /* HAL_I2C_ARDUINO_H_ */
