@@ -16,37 +16,20 @@ Motor::Motor(uint8_t left_pwm_pin,
 Motor::~Motor() {}
 
 void Motor::updateMotors(uint16_t horizontal, uint16_t vertical) {
-  if (RemoteControl::autonomousButton == RemoteControl::normal_state) return;
+  if (RemoteControl::autonomousButton != RemoteControl::normal_state) return;
 
-  int8_t h = map(horizontal, micros_min, micros_max, -100, 100);
-  int8_t v = map(vertical, micros_min, micros_max, -100, 100);
+  int8_t y = map(horizontal, micros_min, micros_max, 100, -100);
+  int8_t x = map(vertical, micros_min, micros_max, -100, 100);
 
-  if (h > 0) {
-    if (v > 0) {
-      left_speed  = hypot(h, v);
-      right_speed = h - v;
-    } else if (v < 0) {
-      right_speed = hypot(h, v);
-      left_speed  = h + v;
-    }
-  } else if (h <= 0) {
-    if (v > 0) {
-      right_speed = hypot(h, v);
-      left_speed  = h + v;
-    } else if (v <= 0) {
-      left_speed  = hypot(h, v);
-      right_speed = h - v;
-    }
-  }
+  left_speed = constrain((x - y), -100, 100);
+  right_speed = constrain((x + y), -100, 100);
 
-  controlLeftMotor(abs(left_speed), left_speed > 0);
-  controlRightMotor(abs(right_speed), right_speed > 0);
 
-}
-
-// bad approximation of hypotenuse
-int16_t Motor::hypot(int16_t h, uint16_t v) {
-  return (abs(h) + abs(v)) / 1.25;
+  uint8_t left_pwm = map (abs(left_speed), 0, 100, 0, 255);
+  uint8_t right_pwm = map (abs(right_speed), 0, 100, 0, 255);
+  Serial.println(left_pwm);
+  controlLeftMotor(abs(left_pwm), left_speed > 0);
+  controlRightMotor(abs(right_pwm), right_speed > 0);
 }
 
 void Motor::controlLeftMotor(uint8_t speed, uint8_t direction){

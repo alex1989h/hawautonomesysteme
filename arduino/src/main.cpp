@@ -49,8 +49,8 @@ void setup() {
 void loop() {
   RemoteControl::updateChannels();
 
-  motors.updateMotors(RemoteControl::getChannelByNumber(2)
-                      , RemoteControl::getChannelByNumber(4));
+  motors.updateMotors(RemoteControl::getChannelByNumber(4)
+                      , RemoteControl::getChannelByNumber(2));
 
   delay(100);
 }
