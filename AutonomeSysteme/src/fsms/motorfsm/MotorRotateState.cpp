@@ -28,3 +28,8 @@ int MotorRotateState::motorRestTransition() {
 	new (this) MotorRestState(content_);
 	return 0;
 }
+
+int MotorRotateState::motorRotateTransition(int speed){
+	DEBUG_MOTOR_FSM("MotorRotateState::motorRotateTransition(int speed)");
+	return 0;
+}

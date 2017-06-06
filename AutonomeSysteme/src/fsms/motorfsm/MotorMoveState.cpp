@@ -31,3 +31,7 @@ int MotorMoveState::motorRotateTransition(int speed) {
 	return 0;
 }
 
+int MotorMoveState::motorMoveTransition(int speed){
+	DEBUG_MOTOR_FSM("MotorMoveState::motorMoveTransition(int speed)");
+	return 0;
+}
