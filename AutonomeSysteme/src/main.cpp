@@ -13,6 +13,7 @@
 #include "tests/ipc/QueueTest.h"
 #include "threads/GripperThread.h"
 #include "threads/RemoteThread.h"
+#include "threads/ObstacleThread.h"
 using namespace std;
 
 int main() {
@@ -29,13 +30,16 @@ int main() {
 	I2CController i2c = I2CController::getInstance();
 	RemoteThread remoteThread;
 	GripperThread gripperThread;
+	//ObstacleThread obstacleThread;
 
 	i2c.start();
 	remoteThread.start();
 	gripperThread.start();
+	//obstacleThread.start();
 
 	i2c.join();
 	remoteThread.join();
 	gripperThread.join();
+	//obstacleThread.join();
 	return 0;
 }

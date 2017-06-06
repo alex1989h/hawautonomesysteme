@@ -12,7 +12,7 @@
 #include "SRF10.h"
 #include "Arduino.h"
 #include "../../threads/MyThread.h"
-
+#include "../../logger/Logger.h"
 class I2CController:public MyThread {
 public:
 	/**
@@ -30,7 +30,8 @@ public:
 	 * Get the front left ultrasonic sensor.
 	 * @return An ultrasonic sensor instance.
 	 */
-	const SRF10& getFrontLeftUltrasonic() const {
+	SRF10& getFrontLeftUltrasonic()  {
+		//COUT << " ID:" << (int)&frontLeftUltrasonic << ENDL;
 		return frontLeftUltrasonic;
 	}
 
@@ -38,7 +39,7 @@ public:
 		 * Get the front right ultrasonic sensor.
 		 * @return An ultrasonic sensor instance.
 		 */
-	const SRF10& getFrontRightUltrasonic() const {
+	SRF10& getFrontRightUltrasonic()  {
 		return frontRightUltrasonic;
 	}
 
@@ -46,7 +47,7 @@ public:
 		 * Get the rear left ultrasonic sensor.
 		 * @return An ultrasonic sensor instance.
 		 */
-	const SRF10& getRearLeftUltrasonic() const {
+	SRF10& getRearLeftUltrasonic()  {
 		return rearLeftUltrasonic;
 	}
 
@@ -54,7 +55,7 @@ public:
 		 * Get the rear right ultrasonic sensor.
 		 * @return An ultrasonic sensor instance.
 		 */
-	const SRF10& getRearRightUltrasonic() const {
+	SRF10& getRearRightUltrasonic()  {
 		return rearRightUltrasonic;
 	}
 
@@ -62,7 +63,7 @@ public:
 	 * Get the A/D-Converter.
 	 * @return An A/D-Converter instance.
 	 */
-	const ADS1015& getADConverter() const {
+	 ADS1015& getADConverter()  {
 		return A_D_Converter;
 	}
 
@@ -70,7 +71,7 @@ public:
 	 * Get the Arduino
 	 * @return An Arduino instance.
 	 */
-	const Arduino& getArduino() const {
+	 Arduino& getArduino()  {
 		return arduino;
 	}
 
@@ -78,7 +79,7 @@ private:
 	I2CController();
 	void operator=(I2CController const&);
 	void run(void);
-	SRF10 frontLeftUltrasonic;
+    SRF10 frontLeftUltrasonic;
 	SRF10 frontRightUltrasonic;
 	SRF10 rearLeftUltrasonic;
 	SRF10 rearRightUltrasonic;

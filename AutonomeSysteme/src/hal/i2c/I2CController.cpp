@@ -31,17 +31,17 @@ void I2CController::run() {
 
 	while (true) {
 		// TODO update sensor data and contol motor
-		A_D_Converter.update_ADC_0();
-		A_D_Converter.update_ADC_1();
-		A_D_Converter.update_ADC_2();
+//		I2CController::getInstance().getADConverter().update_ADC_0();
+//		I2CController::getInstance().getADConverter().update_ADC_1();
+//		I2CController::getInstance().getADConverter().update_ADC_2();
 
-		frontLeftUltrasonic.updateDistance();
-		rearRightUltrasonic.updateDistance();
-		frontRightUltrasonic.updateDistance();
-		rearLeftUltrasonic.updateDistance();
+		I2CController::getInstance().getFrontLeftUltrasonic().updateDistance();
+		I2CController::getInstance().getFrontRightUltrasonic().updateDistance();
+		I2CController::getInstance().getRearLeftUltrasonic().updateDistance();
+		I2CController::getInstance().getRearRightUltrasonic().updateDistance();
 
-		arduino.updateChannelValues();
-		arduino.updateMotors();
+		I2CController::getInstance().getArduino().updateChannelValues();
+		//I2CController::getInstance().getArduino().updateMotors();
 	}
 }
 

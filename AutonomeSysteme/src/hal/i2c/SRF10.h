@@ -11,7 +11,7 @@
 #include <stdint.h>
 #include <unistd.h>
 #include <wiringPiI2C.h>
-
+#include "../../logger/Logger.h"
 // Default Values for gain and range
 #define SRF10_DEFAULT_GAIN				0x10
 #define SRF10_DEFAULT_RANGE				0xFF
@@ -34,6 +34,7 @@ public:
 	 * Refresh the ultrasonic sensors measured distance.
 	 */
 	void updateDistance(){
+		//COUT << distance << ENDL;
 		distance = measureDistance();
 	}
 
