@@ -13,12 +13,17 @@ public:
   static const uint8_t low_state    = 0;
   static const uint8_t normal_state = 1;
   static const uint8_t high_state   = 2;
+  static const uint8_t max_channels = 7;
 
   static uint8_t autonomousButton;
   static uint8_t stopButton;
 
   static uint16_t getChannelByNumber(uint8_t channel) {
-    return channels[channel - 1];
+    return channelValues[channel - 1];
+  }
+
+  static uint8_t * getChannelValues(){
+    return (uint8_t *) channelValues;
   }
 
   static boolean interrupted;
@@ -28,7 +33,7 @@ public:
 private:
 
   static const uint8_t start_pin         = 2;
-  static const uint8_t max_channels      = 7;
+
   static const uint8_t joystick_channels = 4;
 
   RemoteControl();
@@ -36,7 +41,7 @@ private:
 
   static uint8_t getButtonState(uint16_t channel);
 
-  static uint16_t channels[max_channels];
+  static uint16_t channelValues[max_channels];
 };
 
 #endif // ifndef REMOTE_CONTROL_H
