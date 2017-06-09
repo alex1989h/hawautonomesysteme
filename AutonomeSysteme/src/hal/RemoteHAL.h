@@ -84,15 +84,43 @@ public:
 		return pulseWidth[6];
 	}
 	/**
-	 *
+	 * Set the pwm values
 	 * @param index Channel
 	 * @param value pwm width
 	 */
 	void setValue(int index, int value);
+	/**
+	 * Update the channel value to needed values like percent and degree
+	 */
+	void updateValues(void);
+	/**
+	 * Get the calculated speed from remote for the right motor
+	 * @return percent -100% - 100%
+	 */
+	int getPercentForRightMotorSpeed(void);
+	/**
+	 * Get the calculated speed from remote for the left motor
+	 * @return percent -100% - 100%
+	 */
+	int getPercentForLeftMotorSpeed(void);
+	/**
+	 * Get degree
+	 * @return degree -5% - 5%
+	 */
+	int getRelativeDegreeForHorizontalGripperMovements(void);
+	/**
+	 * Get degree
+	 * @return degree -5% - 5%
+	 */
+	int getRelativeDegreeForVerticalGripperMovements(void);
 
 private:
+	int remap(int value, int fromMin, int fromMax, int toMin, int toMax);
+	int constrain(int value, int min, int max);
 	RemoteHAL();
 	int pulseWidth[7];
+	int motorPercents[2];
+	int gripperDegrees[2];
 };
 
 #endif /* HAL_REMOTEHAL_H_ */

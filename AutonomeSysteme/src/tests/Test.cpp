@@ -160,10 +160,12 @@ void testSerialReceive(){
 		COUT << HAL::getRemoteHAL().getValueChannel1() << "\t";
 		COUT << HAL::getRemoteHAL().getValueChannel2() << "\t";
 		COUT << HAL::getRemoteHAL().getValueChannel3() << "\t";
-		COUT << HAL::getRemoteHAL().getValueChannel4() << "\t";
-		COUT << HAL::getRemoteHAL().getValueChannel5() << "\t";
-		COUT << HAL::getRemoteHAL().getValueChannel6() << "\t";
-		COUT << HAL::getRemoteHAL().getValueChannel7() << ENDL;
+		COUT << HAL::getRemoteHAL().getValueChannel4() << ENDL;
+
+		COUT << HAL::getRemoteHAL().getPercentForLeftMotorSpeed() << "\t";
+		COUT << HAL::getRemoteHAL().getPercentForRightMotorSpeed() << "\t";
+		COUT << HAL::getRemoteHAL().getRelativeDegreeForHorizontalGripperMovements() << "\t";
+		COUT << HAL::getRemoteHAL().getRelativeDegreeForVerticalGripperMovements() << ENDL;
 	}
 	serial.join();
 }

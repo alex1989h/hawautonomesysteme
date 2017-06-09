@@ -69,6 +69,7 @@ void SerialReceive::run() {
 			for (var = 0; var < SIZE; var++) {
 				HAL::getRemoteHAL().setValue(var, pwm[var]);
 			}
+			HAL::getRemoteHAL().updateValues();
 		}
 	}
 }
