@@ -22,6 +22,7 @@ MotorThread::~MotorThread() {
 }
 
 void MotorThread::run() {
+	COUT<< "MotorThread started" << ENDL;
 	Queue *queue = QueueFactory::getQueue(MOTOR_QUEUE_ID);
 	Packet *packet = NULL;
 	MotorMessage *message = NULL;
@@ -54,17 +55,14 @@ void MotorThread::run() {
 void MotorThread::handleOnMessage(MotorMessage* message) {
 	//TODO: Der Switch muss ausgefühlt werden
 	switch (message->getCommand()) {
-	case MOTOR_MOVE_FORWARD_WITH_SPEED:
-		context_->motorMoveTransition(message->getSpeed());
-		break;
-	case MOTOR_MOVE_BACKWARD_WITH_SPEED:
-		context_->motorMoveTransition(-message->getSpeed());
+	case MOTOR_MOVE:
+		context_->motorMoveTransition(message->getSpeedLeft(),message->getSpeedRight());
 		break;
 	case MOTOR_ROTATE_LEFT_WITH_SPEED:
-		context_->motorRotateTransition(-message->getSpeed());
+		context_->motorRotateTransition(-message->getSpeedLeft());
 		break;
 	case MOTOR_ROTATE_RIGHT_WITH_SPEED:
-		context_->motorRotateTransition(message->getSpeed());
+		context_->motorRotateTransition(message->getSpeedLeft());
 		break;
 	case MOTOR_ROTATE_TO_ABSOLUTE_DEGREE:
 		//TODO:Braucht man das

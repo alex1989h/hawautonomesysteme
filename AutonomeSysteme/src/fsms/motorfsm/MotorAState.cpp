@@ -14,8 +14,8 @@ MotorAState::MotorAState(MotorContent* content):content_(content) {
 MotorAState::~MotorAState() {
 	// TODO Auto-generated destructor stub
 }
-int MotorAState::motorMoveTransition(int speed) {
-	DEBUG_MOTOR_FSM("MotorAState::motorMoveTransition(int speed)");
+int MotorAState::motorMoveTransition(int speedLeft, int speedRight) {
+	DEBUG_MOTOR_FSM("MotorAState::motorMoveTransition(int speedLeft, int speedRight)");
 	return 0;
 }
 int MotorAState::motorRotateTransition(int speed) {

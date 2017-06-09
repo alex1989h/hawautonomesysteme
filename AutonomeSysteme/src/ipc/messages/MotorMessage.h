@@ -8,8 +8,7 @@
 #ifndef IPC_MESSAGES_MOTORMESSAGE_H_
 #define IPC_MESSAGES_MOTORMESSAGE_H_
 enum MotorCommand{
-	MOTOR_MOVE_FORWARD_WITH_SPEED = 1,
-	MOTOR_MOVE_BACKWARD_WITH_SPEED = 2,
+	MOTOR_MOVE = 1,
 	MOTOR_ROTATE_RIGHT_WITH_SPEED = 3,
 	MOTOR_ROTATE_LEFT_WITH_SPEED = 4,
 	MOTOR_ROTATE_TO_RELATIVE_DEGREE = 5,
@@ -22,17 +21,38 @@ enum MotorCommand{
 #include "Message.h"
 class MotorMessage: public Message {
 public:
-	MotorMessage(MotorCommand command, int speed, int degree);
+	/**
+	 * Constructor
+	 * @param command
+	 * @param speedLeft
+	 * @param speedRight
+	 */
+	MotorMessage(MotorCommand command, int speedLeft, int speedRight);
+	/**
+	 * Destructor
+	 */
 	virtual ~MotorMessage();
 public:
+	/**
+	 * Getter
+	 * @return commands for motor fsm
+	 */
 	MotorCommand getCommand() const;
-	int getDegree() const;
-	int getSpeed() const;
+	/**
+	 * Getter
+	 * @return speed for right motor in percent -100% - 100%
+	 */
+	int getSpeedRight() const;
+	/**
+	 * Getter
+	 * @return speed for left motor in percent -100% - 100%
+	 */
+	int getSpeedLeft() const;
 
 private:
 	MotorCommand command_;
-	int speed_;
-	int degree_;
+	int speedLeft_;
+	int speedRight_;
 
 };
 

@@ -17,9 +17,10 @@ MotorRotateState::MotorRotateState(MotorContent* content):MotorRunningState::Mot
 MotorRotateState::~MotorRotateState() {
 	// TODO Auto-generated destructor stub
 }
-int MotorRotateState::motorMoveTransition(int speed) {
+int MotorRotateState::motorMoveTransition(int speedLeft, int speedRight) {
 	DEBUG_MOTOR_FSM("MotorRotateState::motorMoveTransition(int speed)");
-	content_->setSpeedForMoving(speed);
+	content_->setSpeedForMoving(speedLeft,speedRight);
+	//HAL::getMotorHAL().move(speedLeft, speedRight);
 	new (this) MotorMoveState(content_);
 	return 0;
 }

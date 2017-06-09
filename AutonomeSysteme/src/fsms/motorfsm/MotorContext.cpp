@@ -15,8 +15,8 @@ MotorContext::~MotorContext() {
 	// TODO Auto-generated destructor stub
 }
 
-int MotorContext::motorMoveTransition(int speed) {
-	return state_->motorMoveTransition(speed);
+int MotorContext::motorMoveTransition(int speedLeft, int speedRight) {
+	return state_->motorMoveTransition(speedLeft,speedRight);
 }
 int MotorContext::motorRotateTransition(int speed) {
 	return state_->motorRotateTransition(speed);

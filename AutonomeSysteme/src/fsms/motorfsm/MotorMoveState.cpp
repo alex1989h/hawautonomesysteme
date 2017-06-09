@@ -13,7 +13,7 @@ MotorMoveState::MotorMoveState(MotorContent* content) :
 	DEBUG_MOTOR_FSM("MOTOR_MOVE_STATE");
 	content_->setCurrentState(MOTOR_MOVE_STATE);
 	content_->setMotorRunningStateHistory(MOTOR_MOVE_STATE);
-
+	HAL::getMotorHAL().move(content_->getSpeedLeft(), content_->getSpeedRight());
 }
 
 MotorMoveState::~MotorMoveState() {
@@ -31,7 +31,9 @@ int MotorMoveState::motorRotateTransition(int speed) {
 	return 0;
 }
 
-int MotorMoveState::motorMoveTransition(int speed){
+int MotorMoveState::motorMoveTransition(int speedLeft, int speedRight){
 	DEBUG_MOTOR_FSM("MotorMoveState::motorMoveTransition(int speed)");
+	content_->setSpeedForMoving(speedLeft, speedRight);
+	HAL::getMotorHAL().move(speedLeft, speedRight);
 	return 0;
 }

@@ -20,6 +20,7 @@ MotorRunningState::~MotorRunningState() {
 
 int MotorRunningState::motorStopTransition(){
 	DEBUG_MOTOR_FSM("MotorRunningState::motorStopTransition()")
+	HAL::getMotorHAL().move(0, 0);
 	new (this) MotorStopState(content_);
 	return 0;
 }

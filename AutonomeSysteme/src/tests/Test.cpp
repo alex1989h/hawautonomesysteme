@@ -38,8 +38,8 @@ void transition(MotorContext* context, MotorCommand command) {
 	case MOTOR_STOP:
 		context->motorStopTransition();
 		break;
-	case MOTOR_MOVE_FORWARD_WITH_SPEED:
-		context->motorMoveTransition(0);
+	case MOTOR_MOVE:
+		context->motorMoveTransition(0,0);
 		break;
 	case MOTOR_ROTATE_LEFT_WITH_SPEED:
 		context->motorRotateTransition(0);
@@ -73,11 +73,11 @@ void testMotortFsm() {
 			{ MOTOR_ROTATE_LEFT_WITH_SPEED, MOTOR_REST },
 			{ MOTOR_ROTATE_LEFT_WITH_SPEED, MOTOR_RESET },
 			{ MOTOR_ROTATE_LEFT_WITH_SPEED, MOTOR_STOP, MOTOR_RUN_AGAIN },
-			{ MOTOR_ROTATE_LEFT_WITH_SPEED, MOTOR_MOVE_FORWARD_WITH_SPEED },
-			{ MOTOR_MOVE_FORWARD_WITH_SPEED, MOTOR_STOP, MOTOR_RUN_AGAIN },
-			{ MOTOR_MOVE_FORWARD_WITH_SPEED, MOTOR_ROTATE_LEFT_WITH_SPEED },
-			{ MOTOR_MOVE_FORWARD_WITH_SPEED, MOTOR_REST },
-			{ MOTOR_MOVE_FORWARD_WITH_SPEED, MOTOR_RESET }
+			{ MOTOR_ROTATE_LEFT_WITH_SPEED, MOTOR_MOVE },
+			{ MOTOR_MOVE, MOTOR_STOP, MOTOR_RUN_AGAIN },
+			{ MOTOR_MOVE, MOTOR_ROTATE_LEFT_WITH_SPEED },
+			{ MOTOR_MOVE, MOTOR_REST },
+			{ MOTOR_MOVE, MOTOR_RESET }
 	};
 	int count[] = { 2, 2, 1, 2, 2, 3, 2, 3, 2, 2, 2 };
 	MotorState expected[11][11] = {
@@ -117,8 +117,8 @@ void testMotortFsm() {
 	MotorCommand command2[4][5] = {
 			{ MOTOR_REST, MOTOR_RUN_AGAIN },
 			{ MOTOR_ROTATE_LEFT_WITH_SPEED, MOTOR_ROTATE_LEFT_WITH_SPEED, MOTOR_RUN_AGAIN },
-			{ MOTOR_MOVE_FORWARD_WITH_SPEED,MOTOR_MOVE_FORWARD_WITH_SPEED,MOTOR_RUN_AGAIN},
-			{ MOTOR_STOP, MOTOR_ROTATE_LEFT_WITH_SPEED,MOTOR_STOP,MOTOR_MOVE_FORWARD_WITH_SPEED,MOTOR_REST }
+			{ MOTOR_MOVE,MOTOR_MOVE,MOTOR_RUN_AGAIN},
+			{ MOTOR_STOP, MOTOR_ROTATE_LEFT_WITH_SPEED,MOTOR_STOP,MOTOR_MOVE,MOTOR_REST }
 	};
 	int count2[] = { 2, 3, 3, 5};
 	MotorState expected2[4][5] = {
@@ -152,9 +152,12 @@ void testMotortFsm() {
 
 void testSerialReceive(){
 	SerialReceive serial;
+	RemoteThread remote;
+	MotorThread motor;
 	serial.start();
+	remote.start();
+	motor.start();
 	usleep(1000000);
-	HAL::getMotorHAL();
 	while(true){
 		usleep(1000000);
 		COUT << HAL::getRemoteHAL().getValueChannel1() << "\t";
@@ -168,4 +171,6 @@ void testSerialReceive(){
 		COUT << HAL::getRemoteHAL().getRelativeDegreeForVerticalGripperMovements() << ENDL;
 	}
 	serial.join();
+	remote.join();
+	//motor.join();
 }

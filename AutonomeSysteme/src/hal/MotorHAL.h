@@ -9,8 +9,10 @@
 #define HAL_MOTORHAL_H_
 #include <wiringPi.h>
 #include <softPwm.h>
-
 #include "Direction.h"
+
+#define DEVICE "/dev/ttyS1"
+
 class MotorHAL {
 public:
 	/**
@@ -42,6 +44,7 @@ public:
 	Direction getMovingDirection();
 	Direction getTurningDirection();
 private:
+	int fd_;
 	void setSpeedMotorLeft(int percent);
 	void setSpeedMotorRight(int percent);
 	int getSpeedMotorLeft();

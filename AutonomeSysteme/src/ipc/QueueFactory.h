@@ -14,6 +14,7 @@
 #define MAIN_QUEUE_ID 0
 #define GRIPPER_QUEUE_ID 1
 #define MOTOR_QUEUE_ID 2
+#define REMOTE_QUEUE_ID 3
 
 class QueueFactory {
 private:

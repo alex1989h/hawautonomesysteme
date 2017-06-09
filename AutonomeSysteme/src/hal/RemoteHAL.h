@@ -7,7 +7,7 @@
 
 #ifndef HAL_REMOTEHAL_H_
 #define HAL_REMOTEHAL_H_
-
+#include "../math/mymath.h"
 #include <time.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -115,8 +115,6 @@ public:
 	int getRelativeDegreeForVerticalGripperMovements(void);
 
 private:
-	int remap(int value, int fromMin, int fromMax, int toMin, int toMax);
-	int constrain(int value, int min, int max);
 	RemoteHAL();
 	int pulseWidth[7];
 	int motorPercents[2];

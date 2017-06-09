@@ -6,7 +6,6 @@
  */
 
 #include "RemoteHAL.h"
-#include <math.h>
 #define MAX_PWM_LIMIT 2000
 #define MIN_PWM_LIMIT 1000
 
@@ -56,18 +55,4 @@ void RemoteHAL::updateValues(){
 
 	gripperDegrees[0] = constrain(y, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
 	gripperDegrees[1] = constrain(x, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
-}
-
-int RemoteHAL::remap(int value, int fromMin, int fromMax, int toMin, int toMax){
-  return (value - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin;
-}
-
-int RemoteHAL::constrain(int value, int min, int max){
-	if(value > max){
-		return max;
-	}
-	if(value < min){
-		return min;
-	}
-	return value;
 }

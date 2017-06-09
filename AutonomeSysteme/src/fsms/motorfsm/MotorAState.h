@@ -17,13 +17,14 @@
 
 #include "MotorContent.h"
 #include "../../logger/Logger.h"
+#include "../../hal/HAL.h"
 #include <new>
 
 class MotorAState {
 public:
 	MotorAState(MotorContent* content);
 	virtual ~MotorAState();
-	virtual int motorMoveTransition(int speed);
+	virtual int motorMoveTransition(int speedLeft, int speedRight);
 	virtual int motorRotateTransition(int speed);
 	virtual int motorRestTransition(void);
 	virtual int motorStopTransition(void);

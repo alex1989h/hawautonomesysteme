@@ -26,15 +26,19 @@ private:
 	MotorState currentState_;
 	MotorState motorRunningStateHistory_;
 	int speedForRotation_;
-	int speedForMoving_;
+	int speedLeft_;
+	int speedRight_;
 
 public:
 	MotorState getCurrentState() const;
 	void setCurrentState(MotorState currentState);
 	MotorState getMotorRunningStateHistory() const;
 	void setMotorRunningStateHistory(MotorState motorRunningStateHistory);
-	int getSpeedForMoving() const;
-	void setSpeedForMoving(int speedForMoving);
+
+	int getSpeedLeft() const;
+	int getSpeedRight() const;
+	void setSpeedForMoving(int speedLeft, int speedRight);
+
 	int getSpeedForRotation() const;
 	void setSpeedForRotation(int speedForRotation);
 };

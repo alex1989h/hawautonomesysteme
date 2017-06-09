@@ -14,7 +14,7 @@ class MotorRotateState: public MotorRunningState {
 public:
 	MotorRotateState(MotorContent* content);
 	virtual ~MotorRotateState();
-	virtual int motorMoveTransition(int speed);
+	virtual int motorMoveTransition(int speedLeft, int speedRight);
 	virtual int motorRestTransition(void);
 	virtual int motorRotateTransition(int speed);
 };

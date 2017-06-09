@@ -7,8 +7,8 @@
 
 #include "MotorMessage.h"
 
-MotorMessage::MotorMessage(MotorCommand command, int speed, int degree) :
-		command_(command), speed_(speed), degree_(degree) {
+MotorMessage::MotorMessage(MotorCommand command, int speedLeft, int speedRight) :
+		command_(command), speedLeft_(speedLeft), speedRight_(speedRight) {
 
 }
 
@@ -19,10 +19,10 @@ MotorCommand MotorMessage::getCommand() const {
 	return command_;
 }
 
-int MotorMessage::getDegree() const {
-	return degree_;
+int MotorMessage::getSpeedRight() const {
+	return speedRight_;
 }
 
-int MotorMessage::getSpeed() const {
-	return speed_;
+int MotorMessage::getSpeedLeft() const {
+	return speedLeft_;
 }

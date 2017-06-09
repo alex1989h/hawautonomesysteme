@@ -38,3 +38,13 @@ int MotorStopState::motorRunAgainTransition() {
 	}
 	return 0;
 }
+
+int MotorStopState::motorRestTransition(){
+	content_->setSpeedForMoving(0, 0);
+	return 0;
+}
+
+int MotorStopState::motorMoveTransition(int speedLeft, int speedRight){
+	content_->setSpeedForMoving(speedLeft, speedRight);
+	return 0;
+}

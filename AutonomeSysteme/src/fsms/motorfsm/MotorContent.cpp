@@ -10,8 +10,8 @@
 MotorContent::MotorContent() :
 		currentState_(MOTOR_REST_STATE),
 		motorRunningStateHistory_(MOTOR_REST_STATE),
-		speedForMoving_(0), speedForRotation_(0) {
-	// TODO Auto-generated constructor stub
+		speedLeft_(0), speedRight_(0),speedForRotation_(0) {
+	std::cout << "MotorContent::MotorContent()" << std::endl;
 
 }
 
@@ -36,12 +36,17 @@ void MotorContent::setMotorRunningStateHistory(
 	motorRunningStateHistory_ = motorRunningStateHistory;
 }
 
-int MotorContent::getSpeedForMoving() const {
-	return speedForMoving_;
+void MotorContent::setSpeedForMoving(int speedLeft, int speedRight) {
+	speedLeft_ = speedLeft;
+	speedRight_ = speedRight;
 }
 
-void MotorContent::setSpeedForMoving(int speedForMoving) {
-	speedForMoving_ = speedForMoving;
+int MotorContent::getSpeedLeft() const {
+	return speedLeft_;
+}
+
+int MotorContent::getSpeedRight() const {
+	return speedRight_;
 }
 
 int MotorContent::getSpeedForRotation() const {
