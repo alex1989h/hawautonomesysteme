@@ -32,94 +32,67 @@ public:
 	 * Get the remote control receivers channel 1 pulse width.
 	 * @return The pulse width in microseconds.
 	 */
-	long getValueChannel1() {
-		return I2CController::getInstance().getArduino().channel_value[0];
-		//return widths[0];
-		//return pulseWidth[0];
+	int getValueChannel1() {
+		return pulseWidth[0];
 	}
 
 	/**
 	 * Get the remote control receivers channel 2 pulse width.
 	 * @return The pulse width in microseconds.
 	 */
-	long getValueChannel2() {
-		return I2CController::getInstance().getArduino().channel_value[1];
-		//return widths[1];
-		//return pulseWidth[1];
+	int getValueChannel2() {
+		return pulseWidth[1];
 	}
 
 	/**
 	 * Get the remote control receivers channel 3 pulse width.
 	 * @return The pulse width in microseconds.
 	 */
-	long getValueChannel3() {
-		return I2CController::getInstance().getArduino().channel_value[2];
-		//return widths[2];
-		//return pulseWidth[2];
+	int getValueChannel3() {
+		return pulseWidth[2];
 	}
 
 	/**
 	 * Get the remote control receivers channel 4 pulse width.
 	 * @return The pulse width in microseconds.
 	 */
-	long getValueChannel4() {
-		return I2CController::getInstance().getArduino().channel_value[3];
-		//return widths[3];
-		//return pulseWidth[3];
+	int getValueChannel4() {
+		return pulseWidth[3];
 	}
 
 	/**
 	 * Get the remote control receivers channel 5 pulse width.
 	 * @return The pulse width in microseconds.
 	 */
-	long getValueChannel5() {
-		return I2CController::getInstance().getArduino().channel_value[4];
-		//return widths[5];
-		//return pulseWidth[4];
+	int getValueChannel5() {
+		return pulseWidth[4];
 	}
 
 	/**
 	 * Get the remote control receivers channel 6 pulse width.
 	 * @return The pulse width in microseconds.
 	 */
-	long getValueChannel6() {
-		return I2CController::getInstance().getArduino().channel_value[5];
-		//return widths[6];
-		//return pulseWidth[5];
+	int getValueChannel6() {
+		return pulseWidth[5];
 	}
 
 	/**
 	 * Get the remote control receivers channel 7 pulse width.
 	 * @return The pulse width in microseconds.
 	 */
-	long getValueChannel7() {
-		return I2CController::getInstance().getArduino().channel_value[6];
-		//return widths[7];
-		//return pulseWidth[6];
+	int getValueChannel7() {
+		return pulseWidth[6];
 	}
-
-	long getTime(uint8_t index) const;
+	/**
+	 *
+	 * @param index Channel
+	 * @param value pwm width
+	 */
+	void setValue(int index, int value);
 
 private:
 	RemoteHAL();
-	static struct timespec interruptArrival[9];
-	static long pulseWidth[9];
-
-	static unsigned int times[9];
-	static unsigned int widths[9];
-
-	static void risingEdgeInterruptChannel1();
-	static void risingEdgeInterruptChannel2();
-	static void risingEdgeInterruptChannel3();
-	static void risingEdgeInterruptChannel4();
-	static void fallingEdgeInterruptChannel4();
-
-	static void risingEdgeInterruptChannel5();
-	static void risingEdgeInterruptChannel6();
-	static void risingEdgeInterruptChannel7();
-	static void fallingEdgeInterruptChannel7();
-
-	static void refreshPulseWidth(uint8_t, uint8_t);
+	int pulseWidth[7];
 };
 
 #endif /* HAL_REMOTEHAL_H_ */

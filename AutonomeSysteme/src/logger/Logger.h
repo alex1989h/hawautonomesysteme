@@ -11,6 +11,7 @@
 #include <fstream>
 #include <ctime>
 #include <string>
+#include <string.h>
 #include <stdlib.h>
 #include <sys/time.h>
 #include <time.h>

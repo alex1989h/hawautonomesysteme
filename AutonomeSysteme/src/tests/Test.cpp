@@ -1,18 +1,21 @@
 /*
- * QueueTest.c
+ * Test.c
  *
  *  Created on: 11.05.2017
  *      Author: alexander
  */
+#include "Test.h"
+
 #include <thread>
-#include "Consumer.h"
-#include "Producer.h"
-#include "QueueTest.h"
-#include "../../ipc/Dispatcher.h"
-#include "../../threads/MotorThread.h"
-#include "../../threads/RemoteThread.h"
-#include "../../fsms/motorfsm/MotorContext.h"
-#include "../../fsms/motorfsm/MotorRestState.h"
+#include "ipc/Consumer.h"
+#include "ipc/Producer.h"
+#include "../ipc/Dispatcher.h"
+#include "../threads/MotorThread.h"
+#include "../threads/RemoteThread.h"
+#include "../fsms/motorfsm/MotorContext.h"
+#include "../fsms/motorfsm/MotorRestState.h"
+#include "../serial/SerialReceive.h"
+#include "../hal/HAL.h"
 using namespace std;
 
 void testQueue() {
@@ -147,3 +150,20 @@ void testMotortFsm() {
 	COUT << "END TEST " << ENDL;
 }
 
+void testSerialReceive(){
+	SerialReceive serial;
+	serial.start();
+	usleep(1000000);
+	HAL::getMotorHAL();
+	while(true){
+		usleep(1000000);
+		COUT << HAL::getRemoteHAL().getValueChannel1() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel2() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel3() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel4() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel5() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel6() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel7() << ENDL;
+	}
+	serial.join();
+}

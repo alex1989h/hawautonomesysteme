@@ -10,36 +10,32 @@
 #include <thread>
 #include "./hal/i2c/I2CController.h"
 #include "./hal/HAL.h"
-#include "tests/ipc/QueueTest.h"
 #include "threads/GripperThread.h"
 #include "threads/RemoteThread.h"
 #include "threads/ObstacleThread.h"
+#include "serial/SerialReceive.h"
+#include "tests/Test.h"
 using namespace std;
 
 int main() {
 	cout << "!!!Autonome Systeme!!" << endl; // prints !!!Hello World!!!
-//	thread t1(&MotorGripperThread::run,MotorGripperThread());
-//	cout << "Threads wurden gestartet" << endl;
-//	t1.join();
-//	I2CController& controller = I2CController::getInstance();
-//	HAL::getRemoteHAL();
-//	testQueue();
-//	while(true){
-//		HAL::getMotorHAL().move(HAL::getRemoteHAL().getValueChannel2(), HAL::getRemoteHAL().getValueChannel3());
-//	}
-	I2CController i2c = I2CController::getInstance();
-	RemoteThread remoteThread;
-	GripperThread gripperThread;
-	//ObstacleThread obstacleThread;
-
-	i2c.start();
-	remoteThread.start();
-	gripperThread.start();
-	//obstacleThread.start();
-
-	i2c.join();
-	remoteThread.join();
-	gripperThread.join();
-	//obstacleThread.join();
+	testSerialReceive();
+//	I2CController i2c = I2CController::getInstance();
+//	SerialReceive serial;
+//	RemoteThread remoteThread;
+//	GripperThread gripperThread;
+//	ObstacleThread obstacleThread;
+//
+//	i2c.start();
+//	serial.start();
+//	remoteThread.start();
+//	gripperThread.start();
+//	//obstacleThread.start();
+//
+//	i2c.join();
+//	serial.join();
+//	remoteThread.join();
+//	gripperThread.join();
+//	obstacleThread.join();
 	return 0;
 }

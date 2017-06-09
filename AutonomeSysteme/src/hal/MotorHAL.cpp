@@ -6,11 +6,26 @@
  */
 
 #include "MotorHAL.h"
+#include "../logger/Logger.h"
+#include "wiringPi.h"
+#include "wiringSerial.h"
+#include <errno.h>
 
 MotorHAL::MotorHAL() {
-	// Left motor
-	softPwmCreate(24, 0, 100);
-	softPwmCreate(25, 0, 100);
+	int fd;
+	char device[] = "/dev/ttyS1";
+	if ((fd = serialOpen(device, 9600)) < 0) {
+		COUT<< "MotorHAL: Unable to open" << device << ": "<< strerror(errno) <<ENDL;
+		return;
+	}else {
+		COUT << "MotorHAL: Open " << device << "  was successful" << ENDL;
+	}
+//	if (wiringPiSetup() == -1) {
+//		COUT<< "MotorHAL: Unable to start wiringPi:" << strerror(errno) << ENDL;
+//		return;
+//	}else{
+//		COUT<< "SerialReceiver: start wiringPi  was successful" << ENDL;
+//	}
 }
 
 MotorHAL::~MotorHAL() {
@@ -18,6 +33,5 @@ MotorHAL::~MotorHAL() {
 }
 
 void MotorHAL::move(int speedLeft, int speedRight){
-	softPwmWrite(24, speedLeft/1000);
-	softPwmWrite(25, speedRight/1000);
+
 }
