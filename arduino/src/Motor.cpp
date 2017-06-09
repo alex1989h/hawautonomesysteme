@@ -15,15 +15,18 @@ Motor::Motor(uint8_t left_pwm_pin,
 
 Motor::~Motor() {}
 
+// magic numbers....
 void Motor::updateMotors(uint16_t horizontal, uint16_t vertical) {
   if (RemoteControl::autonomousButton != RemoteControl::normal_state) return;
 
   int8_t y = map(horizontal, micros_min, micros_max, 100, -100);
   int8_t x = map(vertical, micros_min, micros_max, -100, 100);
 
+  if (abs(y) < threshold) y = 0;
+  if (abs(x) < threshold) x = 0;
+
   left_speed = constrain((x - y), -100, 100);
   right_speed = constrain((x + y), -100, 100);
-
 
   uint8_t left_pwm = map (abs(left_speed), 0, 100, 0, 255);
   uint8_t right_pwm = map (abs(right_speed), 0, 100, 0, 255);
