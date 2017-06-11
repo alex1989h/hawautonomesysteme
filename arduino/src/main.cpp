@@ -4,6 +4,7 @@
 #include "RemoteControl.h"
 
 Motor motors(9, 11, 10, 12);
+uint8_t frequency_pin = 13;
 
 /*
    uint8_t reg;
@@ -56,12 +57,12 @@ void setup() {
   Serial.println("start");
 
   // use pin 13 for frequency measurement
-  pinMode(13, OUTPUT);
+  pinMode(frequency_pin, OUTPUT);
 }
 
 void loop() {
   // toggle pin 13 for frequency measurement: measured frequency * 2 = frequency
-  digitalWrite(13, digitalRead(13) ^ 1);
+  digitalWrite(frequency_pin, digitalRead(frequency_pin) ^ 1);
 
   RemoteControl::updateChannels();
 
@@ -70,25 +71,36 @@ void loop() {
   Serial.write(0xC0C0);
 
   if (RemoteControl::autonomousButton != RemoteControl::normal_state) {
-    uint8_t serial1 = Serial.read();
-    uint8_t serial2 = Serial.read();
+    while (Serial.available()) {
+      // read first two sync bytes
+      uint8_t startSync1 = Serial.read();
 
-    if ((serial1 == 0x80) && (serial2 == 0x80)) {
-      // control motors
+      if (startSync1 != 0x80) {
+        continue;
+      }
+
+      uint8_t startSync2 = Serial.read();
+
+      if (startSync2 != 0x80) {
+        continue;
+      }
+
+      // read control bytes
       uint8_t left_direction = Serial.read();
       uint8_t left_speed     = Serial.read();
 
       uint8_t right_direction = Serial.read();
       uint8_t right_speed     = Serial.read();
 
-      if ((Serial.read() == 0xC0) && (Serial.read() == 0xC0)) {
+      // read last two sync bytes
+      uint8_t endSync1 = Serial.read();
+      uint8_t endSync2 = Serial.read();
+
+      // control left & right motors
+      if ((endSync1 == 0xC0) && (endSync2 == 0xC0)) {
         motors.controlLeftMotor(left_speed, left_direction);
-        motors.controlRightMotor(right_direction, right_speed);
+        motors.controlRightMotor(right_speed, right_direction);
       }
-    } else if ((serial1 == 0x81) && (serial2 == 0x81)) {
-      // Tinker Board in stopped state
-    } else {
-      // error
     }
   } else {
     motors.updateMotors(RemoteControl::getChannelByNumber(4)
