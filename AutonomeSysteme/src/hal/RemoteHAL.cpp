@@ -44,15 +44,15 @@ int RemoteHAL::getRelativeDegreeForVerticalGripperMovements(void){
 }
 
 void RemoteHAL::updateValues(){
-	int y = remap(pulseWidth[3], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MAX_PERCENT_LIMIT, MIN_PERCENT_LIMIT);
-	int x = remap(pulseWidth[1], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MIN_PERCENT_LIMIT, MAX_PERCENT_LIMIT);
+	int x = remap(pulseWidth[3], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MAX_PERCENT_LIMIT, MIN_PERCENT_LIMIT);
+	int y = remap(pulseWidth[1], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MIN_PERCENT_LIMIT, MAX_PERCENT_LIMIT);
 
-	motorPercents[0] = constrain((x + y), MIN_PERCENT_LIMIT, MAX_PERCENT_LIMIT);
-	motorPercents[1] = constrain((x - y), MIN_PERCENT_LIMIT, MAX_PERCENT_LIMIT);
+	motorPercents[0] = constrain((y - x), MIN_PERCENT_LIMIT, MAX_PERCENT_LIMIT);
+	motorPercents[1] = constrain((y + x), MIN_PERCENT_LIMIT, MAX_PERCENT_LIMIT);
 
-	y = remap(pulseWidth[0], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MAX_RELATIVE_DEGREE_LIMIT, MIN_RELATIVE_DEGREE_LIMIT);
-	x = remap(pulseWidth[2], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
+	x = remap(pulseWidth[0], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MAX_RELATIVE_DEGREE_LIMIT, MIN_RELATIVE_DEGREE_LIMIT);
+	y = remap(pulseWidth[2], MIN_PWM_LIMIT, MAX_PWM_LIMIT, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
 
-	gripperDegrees[0] = constrain(y, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
-	gripperDegrees[1] = constrain(x, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
+	gripperDegrees[0] = constrain(x, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
+	gripperDegrees[1] = constrain(y, MIN_RELATIVE_DEGREE_LIMIT, MAX_RELATIVE_DEGREE_LIMIT);
 }

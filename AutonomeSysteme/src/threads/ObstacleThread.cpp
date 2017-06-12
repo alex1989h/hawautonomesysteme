@@ -25,11 +25,11 @@ void ObstacleThread::run() {
 	Queue* gripperQueue = QueueFactory::getQueue(GRIPPER_QUEUE_ID);
 	MotorMessage* motorMessage = NULL;
 	while (!isInterrupted()) {
-		COUT<< "Ultrasonic:" << "\t";
-		COUT<< HAL::getUltrasonicHAL().getDistanceFrontRight() << "\t";
-		COUT << HAL::getUltrasonicHAL().getDistanceFrontLeft() << "\t";
-		COUT<< HAL::getUltrasonicHAL().getDistanceRearRight() << "\t";
-		COUT<< HAL::getUltrasonicHAL().getDistanceRearLeft() << ENDL;
+//		COUT<< "Ultrasonic:" << "\t";
+//		COUT<< HAL::getUltrasonicHAL().getDistanceFrontRight() << "\t";
+//		COUT << HAL::getUltrasonicHAL().getDistanceFrontLeft() << "\t";
+//		COUT<< HAL::getUltrasonicHAL().getDistanceRearRight() << "\t";
+//		COUT<< HAL::getUltrasonicHAL().getDistanceRearLeft() << ENDL;
 		usleep(SLEEP_FOR_100_MS);
 	}
 }

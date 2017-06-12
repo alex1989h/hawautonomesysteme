@@ -67,9 +67,9 @@ void GripperThread::handleOnMessage(GripperMessage* message) {
 		break;
 	case GRIPPER_MOVE_HORIZONTAL_RELATIVE:
 		degree = message->getDegree();
-		COUT<< HAL::getGripperHAL().getHorizontalDegree()<<"\t";
-		COUT << degree<<"\t";
-		COUT << HAL::getGripperHAL().getHorizontalDegree() + degree << ENDL;
+//		COUT<< HAL::getGripperHAL().getHorizontalDegree()<<"\t";
+//		COUT << degree<<"\t";
+//		COUT << HAL::getGripperHAL().getHorizontalDegree() + degree << ENDL;
 		HAL::getGripperHAL().moveHorizontalToDegree(HAL::getGripperHAL().getHorizontalDegree() + degree);
 		break;
 		case GRIPPER_MOVE_VERTICAL_RELATIVE:

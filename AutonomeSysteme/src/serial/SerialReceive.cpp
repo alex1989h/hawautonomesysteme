@@ -44,10 +44,12 @@ void SerialReceive::run() {
 //	}
 	while (!isInterrupted()) {
 		sync[0] = serialGetchar(fd);
+//		COUT << "SYNC0 " << (int)sync[0] << "\t";
 		if (sync[0] != 0x80) {
 			continue;
 		}
 		sync[1] = serialGetchar(fd);
+//		COUT << "SYNC1 " << (int)sync[1] << "\t";
 		if (sync[1] != 0x80) {
 			continue;
 		}
@@ -55,7 +57,7 @@ void SerialReceive::run() {
 		for (var = 0; var < SIZE; var++) {
 			pwmByte[0] = serialGetchar(fd);
 			pwmByte[1] = serialGetchar(fd);
-
+//			COUT << (int)pwmByte[0] << "\t" << (int)pwmByte[1] << "\t";
 			if ((pwmByte[0] == 0x80 && pwmByte[1] == 0x80) || (pwmByte[0] == 0xc0 && pwmByte[1] == 0xc0)) {
 				var = -1;
 				continue;
@@ -65,6 +67,7 @@ void SerialReceive::run() {
 
 		sync[0] = serialGetchar(fd);
 		sync[1] = serialGetchar(fd);
+//		COUT << "SYNC2 " << (int)sync[0] << "\tSYNC3 " << (int)sync[1] << ENDL;
 		if (sync[0] == 0xc0 && sync[1] == 0xc0) {
 			for (var = 0; var < SIZE; var++) {
 				HAL::getRemoteHAL().setValue(var, pwm[var]);

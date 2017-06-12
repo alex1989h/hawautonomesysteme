@@ -34,6 +34,12 @@ void RemoteThread::run() {
 	motorQueue_ = QueueFactory::getQueue(MOTOR_QUEUE_ID);
 	gripperQueue_ = QueueFactory::getQueue(GRIPPER_QUEUE_ID);
 	while (!isInterrupted()) {
+
+		COUT << HAL::getRemoteHAL().getValueChannel1() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel2() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel3() << "\t";
+		COUT << HAL::getRemoteHAL().getValueChannel4() << ENDL;
+
 		processMotor();
 		processGripper();
 		usleep(SLEEP_FOR_20_MS);

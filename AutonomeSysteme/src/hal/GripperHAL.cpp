@@ -58,11 +58,11 @@ int GripperHAL::convertDegree(int degree) {
 }
 
 void GripperHAL::moveVerticalToDegree(int degree) {
-	COUT<<"GripperHall vertical degree "<< degree << ENDL;
+	//COUT<<"GripperHall vertical degree "<< degree << ENDL;
 	if (IN_VERTICAL_LIMITS(degree)) {
 		verticalDegree_ = degree;
 		int temp = convertDegree(degree);
-		COUT<<"GripperHall vertical range "<< temp << ENDL;
+		//COUT<<"GripperHall vertical range "<< temp << ENDL;
 		if(temp != verticaltRange_) {
 			verticaltRange_ = temp;
 			pwmWrite(VERICAL_PWM2, temp);
@@ -83,11 +83,11 @@ void GripperHAL::moveVerticalToDegree(int degree) {
 }
 
 void GripperHAL::moveHorizontalToDegree(int degree) {
-	COUT<<"GripperHall horizontal degree "<< degree << ENDL;
+	//COUT<<"GripperHall horizontal degree "<< degree << ENDL;
 	if (IN_HORIZONTAL_LIMITS(degree)) {
 		horizontalDegree_ = degree;
 		int temp = convertDegree(DEGREE_180 - degree);
-		COUT<<"GripperHall horizontal range "<< temp << ENDL;
+		//COUT<<"GripperHall horizontal range "<< temp << ENDL;
 		if(temp != horizontalRange_) {
 			horizontalRange_ = temp;
 			pwmWrite(HORIZONTAL_PWM3, temp);
