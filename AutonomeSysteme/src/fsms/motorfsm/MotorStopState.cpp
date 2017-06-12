@@ -48,3 +48,8 @@ int MotorStopState::motorMoveTransition(int speedLeft, int speedRight){
 	content_->setSpeedForMoving(speedLeft, speedRight);
 	return 0;
 }
+
+int MotorStopState::motorStopTransition(){
+	HAL::getMotorHAL().move(0,0);
+	return 0;
+}

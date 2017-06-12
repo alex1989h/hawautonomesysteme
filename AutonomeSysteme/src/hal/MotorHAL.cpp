@@ -38,7 +38,7 @@ void MotorHAL::move(int speedLeft, int speedRight){
 	uint8_t rightPwm = remap(abs(speedRight),0,ABS_MAX_PERCENT,0,MAX_PWM);
 	uint8_t leftDirection = 0x01;	// 0:forward, 1:backward
 	uint8_t rightDirection = 0x01;
-	COUT << "MotorHAL: " << leftPwm << " "<< rightPwm << ENDL;
+	//COUT << "MotorHAL: " << leftPwm << " "<< rightPwm << ENDL;
 	if(speedLeft < 0){
 		leftDirection = 0x00;
 	}

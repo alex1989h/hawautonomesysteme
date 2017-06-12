@@ -26,20 +26,20 @@ int main() {
 	RemoteThread remoteThread;
 	GripperThread gripperThread;
 	MotorThread motorThread;
-//	ObstacleThread obstacleThread;
+	ObstacleThread obstacleThread;
 
 	i2c.start();
 	serial.start();
 	remoteThread.start();
 	gripperThread.start();
 	motorThread.start();
-	//obstacleThread.start();
+	obstacleThread.start();
 
 	i2c.join();
 	serial.join();
 	remoteThread.join();
 	gripperThread.join();
 	motorThread.join();
-//	obstacleThread.join();
+	obstacleThread.join();
 	return 0;
 }

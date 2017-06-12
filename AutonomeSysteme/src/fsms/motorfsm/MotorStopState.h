@@ -17,6 +17,7 @@ public:
 	virtual int motorRunAgainTransition(void);
 	virtual int motorRestTransition(void);
 	virtual int motorMoveTransition(int speedLeft, int speedRight);
+	virtual int motorStopTransition(void);
 };
 
 #endif /* FSMS_MOTORFSM_MOTORSTOPSTATE_H_ */
