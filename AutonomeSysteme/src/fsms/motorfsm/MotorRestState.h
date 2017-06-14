@@ -15,7 +15,6 @@ public:
 	MotorRestState(MotorContent* content);
 	virtual ~MotorRestState();
 	virtual int motorMoveTransition(int speedLeft, int speedRight);
-	virtual int motorRotateTransition(int speed);
 };
 
 #endif /* FSMS_MOTORFSM_MOTORRESTSTATE_H_ */

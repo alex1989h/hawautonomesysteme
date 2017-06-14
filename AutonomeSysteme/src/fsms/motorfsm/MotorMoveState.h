@@ -15,7 +15,6 @@ public:
 	MotorMoveState(MotorContent* content);
 	virtual ~MotorMoveState();
 	virtual int motorRestTransition(void);
-	virtual int motorRotateTransition(int speed);
 	virtual int motorMoveTransition(int speedLeft, int speedRight);
 };
 

@@ -13,8 +13,7 @@ enum MotorState{
 	MOTOR_RUNNING_STATE = 2,
 	MOTOR_STOP_STATE = 3,
 	MOTOR_REST_STATE = 4,
-	MOTOR_MOVE_STATE = 5,
-	MOTOR_ROTATE_STATE = 6
+	MOTOR_MOVE_STATE = 5
 
 };
 class MotorContent {
@@ -25,7 +24,6 @@ public:
 private:
 	MotorState currentState_;
 	MotorState motorRunningStateHistory_;
-	int speedForRotation_;
 	int speedLeft_;
 	int speedRight_;
 
@@ -38,9 +36,6 @@ public:
 	int getSpeedLeft() const;
 	int getSpeedRight() const;
 	void setSpeedForMoving(int speedLeft, int speedRight);
-
-	int getSpeedForRotation() const;
-	void setSpeedForRotation(int speedForRotation);
 };
 
 #endif /* FSMS_MOTORFSM_MOTORCONTENT_H_ */

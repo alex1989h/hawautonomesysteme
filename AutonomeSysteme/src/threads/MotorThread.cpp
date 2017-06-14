@@ -58,18 +58,6 @@ void MotorThread::handleOnMessage(MotorMessage* message) {
 	case MOTOR_MOVE:
 		context_->motorMoveTransition(message->getSpeedLeft(),message->getSpeedRight());
 		break;
-	case MOTOR_ROTATE_LEFT_WITH_SPEED:
-		context_->motorRotateTransition(-message->getSpeedLeft());
-		break;
-	case MOTOR_ROTATE_RIGHT_WITH_SPEED:
-		context_->motorRotateTransition(message->getSpeedLeft());
-		break;
-	case MOTOR_ROTATE_TO_ABSOLUTE_DEGREE:
-		//TODO:Braucht man das
-		break;
-	case MOTOR_ROTATE_TO_RELATIVE_DEGREE:
-		//TODO:Braucht man das
-		break;
 	case MOTOR_REST:
 		context_->motorRestTransition();
 		break;

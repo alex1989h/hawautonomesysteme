@@ -16,7 +16,6 @@ private:
 	MotorAState* state_;
 public:
 	int motorMoveTransition(int speedLeft, int speedRight);
-	int motorRotateTransition(int speed);
 	int motorRestTransition(void);
 	int motorStopTransition(void);
 	int motorRunAgainTransition(void);

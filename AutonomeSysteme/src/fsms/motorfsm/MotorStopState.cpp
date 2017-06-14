@@ -8,7 +8,6 @@
 #include "MotorStopState.h"
 #include "MotorRestState.h"
 #include "MotorMoveState.h"
-#include "MotorRotateState.h"
 
 MotorStopState::MotorStopState(MotorContent* content) :
 		MotorAState::MotorAState(content) {
@@ -28,9 +27,6 @@ int MotorStopState::motorRunAgainTransition() {
 		break;
 	case MOTOR_MOVE_STATE:
 		new (this) MotorMoveState(content_);
-		break;
-	case MOTOR_ROTATE_STATE:
-		new (this) MotorRotateState(content_);
 		break;
 	default:
 		COUT<< "FEHLER: MotorRunningState History" << ENDL;

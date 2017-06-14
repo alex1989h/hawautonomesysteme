@@ -18,10 +18,6 @@ int MotorAState::motorMoveTransition(int speedLeft, int speedRight) {
 	DEBUG_MOTOR_FSM("MotorAState::motorMoveTransition(int speedLeft, int speedRight)");
 	return 0;
 }
-int MotorAState::motorRotateTransition(int speed) {
-	DEBUG_MOTOR_FSM("MotorAState::motorRotateTransition(int speed)");
-	return 0;
-}
 int MotorAState::motorRestTransition() {
 	DEBUG_MOTOR_FSM("MotorAState::motorRestTransition()");
 	return 0;

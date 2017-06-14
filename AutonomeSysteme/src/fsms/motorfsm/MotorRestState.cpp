@@ -7,7 +7,6 @@
 
 #include "MotorRestState.h"
 #include "MotorMoveState.h"
-#include "MotorRotateState.h"
 MotorRestState::MotorRestState(MotorContent* content) :
 		MotorRunningState::MotorRunningState(content) {
 	DEBUG_MOTOR_FSM("MOTOR_REST_STATE");
@@ -25,11 +24,5 @@ int MotorRestState::motorMoveTransition(int speedLeft, int speedRight) {
 	content_->setSpeedForMoving(speedLeft,speedRight);
 	//HAL::getMotorHAL().move(speedLeft, speedRight);
 	new (this) MotorMoveState(content_);
-	return 0;
-}
-int MotorRestState::motorRotateTransition(int speed) {
-	DEBUG_MOTOR_FSM("MotorRestState::motorRotateTransition(int speed)");
-	content_->setSpeedForRotation(speed);
-	new (this) MotorRotateState(content_);
 	return 0;
 }

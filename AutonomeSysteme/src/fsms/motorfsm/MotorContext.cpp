@@ -18,9 +18,6 @@ MotorContext::~MotorContext() {
 int MotorContext::motorMoveTransition(int speedLeft, int speedRight) {
 	return state_->motorMoveTransition(speedLeft,speedRight);
 }
-int MotorContext::motorRotateTransition(int speed) {
-	return state_->motorRotateTransition(speed);
-}
 int MotorContext::motorRestTransition() {
 	return state_->motorRestTransition();
 }
