@@ -7,6 +7,9 @@
 
 #ifndef IPC_MESSAGES_MESSAGE_H_
 #define IPC_MESSAGES_MESSAGE_H_
+#include <typeinfo>
+
+#define IS_INSTANCE_OF(OBJECT,TYPE) typeid(TYPE) == typeid(*(TYPE*) OBJECT)
 
 class Message {
 public:

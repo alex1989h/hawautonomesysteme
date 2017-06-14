@@ -12,10 +12,10 @@
 using namespace std;
 
 I2CController::I2CController():
-	frontLeftUltrasonic(0x71, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
-	frontRightUltrasonic(0x70, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
-	rearLeftUltrasonic(0x72, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
-	rearRightUltrasonic(0x73, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	frontLeftUltrasonic(0x72, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	frontRightUltrasonic(0x73, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	rearLeftUltrasonic(0x71, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
+	rearRightUltrasonic(0x70, SRF10_DEFAULT_GAIN, SRF10_DEFAULT_RANGE),
 	A_D_Converter(0x48),
 	arduino(0x08)
 {

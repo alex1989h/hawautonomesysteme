@@ -9,6 +9,8 @@
 #include "../logger/Logger.h"
 #include "../ipc/QueueFactory.h"
 #include "../ipc/messages/MotorMessage.h"
+#include "../ipc/messages/ObstacleMessage.h"
+#include "../ipc/Packet.h"
 #include "../hal/HAL.h"
 #define SLEEP_FOR_100_MS 100*1000
 ObstacleThread::ObstacleThread() {
@@ -21,29 +23,72 @@ ObstacleThread::~ObstacleThread() {
 }
 
 void ObstacleThread::run() {
-	int ultraFronLeft,ultraFrontRight;
-	bool stopped = false;
+	int ultraFronLeft = 100,ultraFrontRight = 100;
+	int ultraBackLeft = 100,ultraBackRight = 100;
+
+	ObstacleModus modus = OBSTACLE_FRONT;
+	int limits = 20;
 
 	Queue* motorQueue = QueueFactory::getQueue(MOTOR_QUEUE_ID);
-	Queue* gripperQueue = QueueFactory::getQueue(GRIPPER_QUEUE_ID);
+	Queue* obstacleQueue = QueueFactory::getQueue(OBSTACLE_QUEUE_ID);
+	Packet* packet = NULL;
+	ObstacleMessage* obstacleMessage = NULL;
 	MotorMessage* motorMessage = NULL;
+
 	while (!isInterrupted()) {
-		COUT<< "Ultrasonic:" << "\t";
-		COUT<< HAL::getUltrasonicHAL().getDistanceFrontRight() << "\t";
-		COUT << HAL::getUltrasonicHAL().getDistanceFrontLeft() << "\t";
 
-		ultraFronLeft = HAL::getUltrasonicHAL().getDistanceRearRight();
-		ultraFrontRight = HAL::getUltrasonicHAL().getDistanceRearLeft();
-
-		COUT<< ultraFronLeft << "\t";
-		COUT<< ultraFrontRight << "\t";
-		COUT << stopped << ENDL;
-		if((ultraFronLeft <= 20 || ultraFrontRight <= 20)){
-			motorMessage = new MotorMessage(MOTOR_STOP,0,0);
-			motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
-			stopped = true;
+		packet = obstacleQueue->tryDequeue();
+		if (packet != NULL) {
+			if (packet->getMessage() != NULL) {
+				if (IS_INSTANCE_OF(packet->getMessage(),ObstacleMessage)) {
+					obstacleMessage = (ObstacleMessage*) packet->getMessage();
+					modus = obstacleMessage->getModus();
+					if(obstacleMessage->getLimit() > 0){
+						limits = obstacleMessage->getLimit();
+					}
+					delete obstacleMessage;
+					obstacleMessage = NULL;
+				} else {
+					delete packet->getMessage();
+					packet->setMessage(NULL);
+				}
+			} else {
+				COUT<< "Obstacle: Message is null" << ENDL;
+			}
+			delete packet;
+			packet = NULL;
 		}
 
+		ultraFronLeft = HAL::getUltrasonicHAL().getDistanceFrontLeft();
+		ultraFrontRight = HAL::getUltrasonicHAL().getDistanceFrontRight();
+		ultraBackLeft = HAL::getUltrasonicHAL().getDistanceRearLeft();
+		ultraBackRight = HAL::getUltrasonicHAL().getDistanceRearRight();
+
+		switch (modus) {
+			case OBSTACLE_FRONT:
+				if(ultraFronLeft <= limits || ultraFrontRight <= limits){
+					motorMessage = new MotorMessage(MOTOR_STOP,0,0);
+					motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
+				}
+				break;
+			case OBSTACLE_BACK:
+				if(ultraBackLeft <= limits || ultraBackRight <= limits){
+					motorMessage = new MotorMessage(MOTOR_STOP,0,0);
+					motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
+				}
+				break;
+			case OBSTACLE_FRONT_AND_BACK:
+				if(ultraFronLeft <= limits || ultraFrontRight <= limits || ultraBackLeft <= limits || ultraBackRight <= limits){
+					motorMessage = new MotorMessage(MOTOR_STOP,0,0);
+					motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
+				}
+				break;
+			case OBSTACLE_DASABLE:
+				break;
+			default:
+				COUT << "Obstacle: Wrong modus";
+				break;
+		}
 		usleep(SLEEP_FOR_100_MS);
 	}
 }
