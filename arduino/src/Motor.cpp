@@ -46,7 +46,7 @@ void Motor::controlRightMotor(uint8_t speed, uint8_t direction){
 void Motor::controlMotor(uint8_t pwm_pin, uint8_t direction_pin, uint8_t speed, uint8_t direction) {
   digitalWrite(direction_pin,  direction);
 
-  if ((RemoteControl::stopButton != RemoteControl::normal_state) || (speed < threshold)) speed = 0;
+  if (/*(RemoteControl::stopButton != RemoteControl::normal_state) ||*/ (speed < threshold)) speed = 0;
 
   analogWrite(pwm_pin,  speed);
 }

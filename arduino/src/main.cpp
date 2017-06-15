@@ -66,9 +66,11 @@ void loop() {
 
   RemoteControl::updateChannels();
 
-  Serial.write(0x8080);
+  Serial.write(0x80);
+  Serial.write(0x80);
   Serial.write(RemoteControl::getChannelValues(), RemoteControl::max_channels * 2);
-  Serial.write(0xC0C0);
+  Serial.write(0xC0);
+  Serial.write(0xC0);
 
   if (RemoteControl::autonomousButton != RemoteControl::normal_state) {
     while (Serial.available()) {
