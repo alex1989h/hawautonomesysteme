@@ -16,6 +16,7 @@
 #define MOTOR_QUEUE_ID 2
 #define REMOTE_QUEUE_ID 3
 #define OBSTACLE_QUEUE_ID 4
+#define POSITION_QUEUE_ID 5
 
 class QueueFactory {
 private:

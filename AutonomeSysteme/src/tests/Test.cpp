@@ -59,11 +59,13 @@ void testMotortFsm() {
 	COUT << "START TEST " << ENDL;
 	int i, j;
 	int zaehler = 1;
+	int const pfade = 6;
+	int const pfade2 = 3;
 	MotorContext context;
 	MotorContent* content = NULL;
 	MotorRestState* state = NULL;
 	//------------------------------------------------------------------------
-	MotorCommand command[11][11] = {
+	MotorCommand command[pfade][3] = {
 			{ MOTOR_STOP, MOTOR_RESET },
 			{ MOTOR_STOP, MOTOR_RUN_AGAIN },
 			{ MOTOR_RESET },
@@ -71,8 +73,8 @@ void testMotortFsm() {
 			{ MOTOR_MOVE, MOTOR_REST },
 			{ MOTOR_MOVE, MOTOR_RESET }
 	};
-	int count[] = { 2, 2, 1, 2, 2, 3, 2, 3, 2, 2, 2 };
-	MotorState expected[11][11] = {
+	int count[] = { 2, 2, 1, 3, 2, 2};
+	MotorState expected[pfade][3] = {
 				{ MOTOR_STOP_STATE, MOTOR_REST_STATE },
 				{ MOTOR_STOP_STATE, MOTOR_REST_STATE },
 				{ MOTOR_REST_STATE },
@@ -80,7 +82,7 @@ void testMotortFsm() {
 				{ MOTOR_MOVE_STATE, MOTOR_REST_STATE },
 				{ MOTOR_MOVE_STATE, MOTOR_REST_STATE }
 		};
-	for (i = 0; i < 11; i++) {
+	for (i = 0; i < pfade; i++) {
 		content = new MotorContent();
 		state = new MotorRestState(content);
 		context.setState(state);
@@ -101,17 +103,18 @@ void testMotortFsm() {
 		delete state;
 	}
 	//------------------------------------------------------------------------
-	MotorCommand command2[4][5] = {
+	MotorCommand command2[pfade2][4] = {
 			{ MOTOR_REST, MOTOR_RUN_AGAIN },
 			{ MOTOR_MOVE,MOTOR_MOVE,MOTOR_RUN_AGAIN},
+			{ MOTOR_STOP,MOTOR_STOP,MOTOR_REST,MOTOR_MOVE}
 	};
-	int count2[] = { 2, 3, 3, 5};
-	MotorState expected2[4][5] = {
+	int count2[] = { 2, 3, 4};
+	MotorState expected2[pfade2][4] = {
 			{ MOTOR_REST_STATE, MOTOR_REST_STATE },
 			{ MOTOR_MOVE_STATE , MOTOR_MOVE_STATE, MOTOR_MOVE_STATE},
-			{ MOTOR_STOP_STATE, MOTOR_STOP_STATE,MOTOR_STOP_STATE,MOTOR_STOP_STATE,MOTOR_STOP_STATE}
+			{ MOTOR_STOP_STATE, MOTOR_STOP_STATE,MOTOR_STOP_STATE,MOTOR_STOP_STATE}
 	};
-	for (i = 0; i < 4; i++) {
+	for (i = 0; i < pfade2; i++) {
 			content = new MotorContent();
 			state = new MotorRestState(content);
 			context.setState(state);

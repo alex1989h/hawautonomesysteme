@@ -15,6 +15,7 @@
 #include "threads/MotorThread.h"
 #include "threads/ObstacleThread.h"
 #include "serial/SerialReceive.h"
+#include "threads/PositioningThread.h"
 #include "tests/Test.h"
 using namespace std;
 
@@ -27,6 +28,7 @@ int main() {
 	GripperThread gripperThread;
 	MotorThread motorThread;
 	ObstacleThread obstacleThread;
+	PositioningThread positioningThread;
 
 	i2c.start();
 	serial.start();
@@ -34,6 +36,7 @@ int main() {
 	gripperThread.start();
 	motorThread.start();
 	obstacleThread.start();
+	positioningThread.start();
 
 	i2c.join();
 	serial.join();
@@ -41,5 +44,6 @@ int main() {
 	gripperThread.join();
 	motorThread.join();
 	obstacleThread.join();
+	positioningThread.join();
 	return 0;
 }
