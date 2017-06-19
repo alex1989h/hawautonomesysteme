@@ -22,6 +22,7 @@ using namespace std;
 int main() {
 	cout << "!!!Autonome Systeme!!" << endl; // prints !!!Hello World!!!
 //	testSerialReceive();
+	//testServo();
 	I2CController i2c = I2CController::getInstance();
 	SerialReceive serial;
 	RemoteThread remoteThread;

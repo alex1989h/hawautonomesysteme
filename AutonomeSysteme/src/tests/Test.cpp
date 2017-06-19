@@ -161,3 +161,17 @@ void testSerialReceive(){
 	remote.join();
 	//motor.join();
 }
+
+void testServo(){
+	int var;
+	int zahl[] = {0,90,180,90};
+	while(true){
+		for (var = 0; var < 4; var++) {
+			HAL::getGripperHAL().moveHorizontalToDegree(zahl[var]);
+			HAL::getGripperHAL().moveVerticalToDegree(zahl[var]);
+			usleep(1000000);
+
+		}
+	}
+
+}

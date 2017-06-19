@@ -8,6 +8,7 @@
 #include "GripperHAL.h"
 #include <wiringPi.h>
 #include "../logger/Logger.h"
+#include "../math/mymath.h"
 
 #define DIVISOR 1450
 #define RANGE 1024
@@ -16,9 +17,14 @@
 #define DEGREE_90 90
 #define DEGREE_0 0
 
-#define LEFT_RANGE_LIMIT 49
-#define MIDDLE_RANGE_LIMIT 89
-#define RIGHT_RANGE_LIMIT 129
+#define HORIZONTAL_LEFT_RANGE_LIMIT 49
+#define HORIZONTAL_MIDDLE_RANGE_LIMIT 89
+#define HORIZONTAL_RIGHT_RANGE_LIMIT 129
+
+#define VERTICAL_LEFT_RANGE_LIMIT 25
+#define VERTICAL_MIDDLE_RANGE_LIMIT 75
+#define VERTICAL_RIGHT_RANGE_LIMIT 125
+
 
 #define HORIZONTAL_PWM3 26
 #define VERICAL_PWM2 23
@@ -32,8 +38,8 @@
 GripperHAL::GripperHAL() :
 		horizontalDegree_(HORIZONTAL_DEFAULT_DEGREE), verticalDegree_(
 		VERTICAL_DEFAULT_DEGREE),
-		horizontalRange_(MIDDLE_RANGE_LIMIT),
-		verticaltRange_(LEFT_RANGE_LIMIT) {
+		horizontalRange_(HORIZONTAL_MIDDLE_RANGE_LIMIT),
+		verticaltRange_(HORIZONTAL_LEFT_RANGE_LIMIT) {
 	COUT<< "Constructor:GripperHAL" << ENDL;
 	wiringPiSetup();
 
@@ -52,16 +58,20 @@ GripperHAL::~GripperHAL() {
 }
 
 int GripperHAL::convertDegree(int degree) {
-	return (int) ((((RIGHT_RANGE_LIMIT - LEFT_RANGE_LIMIT) / (float) DEGREE_180)
-			* degree) + LEFT_RANGE_LIMIT);
+	return (int) ((((HORIZONTAL_RIGHT_RANGE_LIMIT - HORIZONTAL_LEFT_RANGE_LIMIT) / (float) DEGREE_180)
+			* degree) + HORIZONTAL_LEFT_RANGE_LIMIT);
 
+}
+
+int GripperHAL::convertDegreeForVertical(int degree){
+	return remap(degree,DEGREE_0,DEGREE_180,VERTICAL_LEFT_RANGE_LIMIT,VERTICAL_RIGHT_RANGE_LIMIT);
 }
 
 void GripperHAL::moveVerticalToDegree(int degree) {
 	//COUT<<"GripperHall vertical degree "<< degree << ENDL;
 	if (IN_VERTICAL_LIMITS(degree)) {
 		verticalDegree_ = degree;
-		int temp = convertDegree(degree);
+		int temp = convertDegreeForVertical(degree);
 		//COUT<<"GripperHall vertical range "<< temp << ENDL;
 		if(temp != verticaltRange_) {
 			verticaltRange_ = temp;
@@ -69,15 +79,15 @@ void GripperHAL::moveVerticalToDegree(int degree) {
 		}
 	} else if(degree > DEGREE_90) {
 		verticalDegree_ = DEGREE_90;
-		if(verticaltRange_ != MIDDLE_RANGE_LIMIT) {
-			verticaltRange_ = MIDDLE_RANGE_LIMIT;
-			pwmWrite(VERICAL_PWM2, MIDDLE_RANGE_LIMIT);
+		if(verticaltRange_ != VERTICAL_MIDDLE_RANGE_LIMIT) {
+			verticaltRange_ = VERTICAL_MIDDLE_RANGE_LIMIT;
+			pwmWrite(VERICAL_PWM2, VERTICAL_MIDDLE_RANGE_LIMIT);
 		}
 	} else if(degree < DEGREE_0) {
 		verticalDegree_ = DEGREE_0;
-		if(verticaltRange_ != LEFT_RANGE_LIMIT) {
-			verticaltRange_ = LEFT_RANGE_LIMIT;
-			pwmWrite(VERICAL_PWM2, LEFT_RANGE_LIMIT);
+		if(verticaltRange_ != VERTICAL_LEFT_RANGE_LIMIT) {
+			verticaltRange_ = VERTICAL_LEFT_RANGE_LIMIT;
+			pwmWrite(VERICAL_PWM2, VERTICAL_LEFT_RANGE_LIMIT);
 		}
 	}
 }
@@ -94,15 +104,15 @@ void GripperHAL::moveHorizontalToDegree(int degree) {
 		}
 	} else if(degree > DEGREE_180) {
 		horizontalDegree_ = DEGREE_180;
-		if(horizontalRange_ != RIGHT_RANGE_LIMIT) {
-			horizontalRange_ = RIGHT_RANGE_LIMIT;
-			pwmWrite(HORIZONTAL_PWM3, RIGHT_RANGE_LIMIT);
+		if(horizontalRange_ != HORIZONTAL_RIGHT_RANGE_LIMIT) {
+			horizontalRange_ = HORIZONTAL_RIGHT_RANGE_LIMIT;
+			pwmWrite(HORIZONTAL_PWM3, HORIZONTAL_RIGHT_RANGE_LIMIT);
 		}
 	} else if(degree < DEGREE_0) {
 		horizontalDegree_ = DEGREE_0;
-		if(horizontalRange_ != LEFT_RANGE_LIMIT) {
-			horizontalRange_ = LEFT_RANGE_LIMIT;
-			pwmWrite(HORIZONTAL_PWM3, LEFT_RANGE_LIMIT);
+		if(horizontalRange_ != HORIZONTAL_LEFT_RANGE_LIMIT) {
+			horizontalRange_ = HORIZONTAL_LEFT_RANGE_LIMIT;
+			pwmWrite(HORIZONTAL_PWM3, HORIZONTAL_LEFT_RANGE_LIMIT);
 		}
 	}
 }

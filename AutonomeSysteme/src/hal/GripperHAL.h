@@ -80,6 +80,12 @@ private:
 	 * @return
 	 */
 	int convertDegree(int degree);
+	/**
+	 * This function convert degree in for GripperHAL needed range for vertical servo
+	 * @param degree
+	 * @return
+	 */
+	int convertDegreeForVertical(int degree);
 };
 
 #endif /* HAL_GRIPPERHAL_H_ */
