@@ -105,6 +105,9 @@ void loop() {
       }
     }
   } else {
+    while (Serial.available()){
+      Serial.read();
+    }
     motors.updateMotors(RemoteControl::getChannelByNumber(4)
                         , RemoteControl::getChannelByNumber(2));
   }
