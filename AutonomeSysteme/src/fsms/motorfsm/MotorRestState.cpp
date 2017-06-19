@@ -26,3 +26,10 @@ int MotorRestState::motorMoveTransition(int speedLeft, int speedRight) {
 	new (this) MotorMoveState(content_);
 	return 0;
 }
+
+int MotorRestState::motorRestTransition(){
+	DEBUG_MOTOR_FSM("MotorRestState::motorRestTransition()");
+	content_->setSpeedForMoving(0,0);
+	HAL::getMotorHAL().move(0, 0);
+	return 0;
+}
