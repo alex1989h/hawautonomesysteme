@@ -63,32 +63,33 @@ void ObstacleThread::run() {
 		ultraFrontRight = HAL::getUltrasonicHAL().getDistanceFrontRight();
 		ultraBackLeft = HAL::getUltrasonicHAL().getDistanceRearLeft();
 		ultraBackRight = HAL::getUltrasonicHAL().getDistanceRearRight();
-
-		switch (modus) {
-			case OBSTACLE_FRONT:
-				if(ultraFronLeft <= limits || ultraFrontRight <= limits){
-					motorMessage = new MotorMessage(MOTOR_STOP,0,0);
-					motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
-				}
-				break;
-			case OBSTACLE_BACK:
-				if(ultraBackLeft <= limits || ultraBackRight <= limits){
-					motorMessage = new MotorMessage(MOTOR_STOP,0,0);
-					motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
-				}
-				break;
-			case OBSTACLE_FRONT_AND_BACK:
-				if(ultraFronLeft <= limits || ultraFrontRight <= limits || ultraBackLeft <= limits || ultraBackRight <= limits){
-					motorMessage = new MotorMessage(MOTOR_STOP,0,0);
-					motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
-				}
-				break;
-			case OBSTACLE_DASABLE:
-				break;
-			default:
-				COUT << "Obstacle: Wrong modus";
-				break;
+		if(HAL::getRemoteHAL().getValueChannel7() < 1700){
+			switch (modus) {
+				case OBSTACLE_FRONT:
+					if(ultraFronLeft <= limits || ultraFrontRight <= limits){
+						motorMessage = new MotorMessage(MOTOR_STOP,0,0);
+						motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
+					}
+					break;
+				case OBSTACLE_BACK:
+					if(ultraBackLeft <= limits || ultraBackRight <= limits){
+						motorMessage = new MotorMessage(MOTOR_STOP,0,0);
+						motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
+					}
+					break;
+				case OBSTACLE_FRONT_AND_BACK:
+					if(ultraFronLeft <= limits || ultraFrontRight <= limits || ultraBackLeft <= limits || ultraBackRight <= limits){
+						motorMessage = new MotorMessage(MOTOR_STOP,0,0);
+						motorQueue->enqueue(new Packet(MOTOR_QUEUE_ID,OBSTACLE_QUEUE_ID,motorMessage));
+					}
+					break;
+				case OBSTACLE_DASABLE:
+					break;
+				default:
+					COUT << "Obstacle: Wrong modus";
+					break;
+			}
+			usleep(SLEEP_FOR_100_MS);
 		}
-		usleep(SLEEP_FOR_100_MS);
 	}
 }
