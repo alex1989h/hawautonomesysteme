@@ -19,26 +19,26 @@ IRHAL::~IRHAL() {
 
 /**
  * Get the distance of the right IR-Sensor.
- * @return Distance of the sensor in millimeters.
+ * @return Distance of the sensor in cm.
  */
 int IRHAL::getDistanceRight() {
-	return I2CController::getInstance().getADConverter().getDistanceAdc0();
+	return adcValueToDistance(I2CController::getInstance().getADConverter().getDistanceAdc0());
 }
 
 /**
  * Get the distance of the left IR-Sensor.
- * @return Distance of the sensor in millimeters.
+ * @return Distance of the sensor in cm.
  */
 int IRHAL::getDistanceLeft() {
-	return I2CController::getInstance().getADConverter().getDistanceAdc1();
+	return adcValueToDistance(I2CController::getInstance().getADConverter().getDistanceAdc1());
 }
 
 /**
  * Get the distance of the center IR-Sensor.
- * @return Distance of the sensor in millimeters.
+ * @return Distance of the sensor in cm.
  */
 int IRHAL::getDistanceCenter() {
-	return I2CController::getInstance().getADConverter().getDistanceAdc2();
+	return adcValueToDistance(I2CController::getInstance().getADConverter().getDistanceAdc2());
 }
 
 /**

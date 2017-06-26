@@ -11,7 +11,7 @@
 #include "../ipc/Packet.h"
 #include "../ipc/messages/MotorMessage.h"
 #define SLEEP_10_MSEC 10*1000
-#define OFFSET 10
+#define OFFSET 1
 PositioningThread::PositioningThread():motorQueue_(NULL),state_(POSITION_MIDDLE) {
 	COUT << "Costructor: PositioningThread" << ENDL;
 }
@@ -54,11 +54,11 @@ void PositioningThread::orthogonalToWall(int distanceLeft, int distanceRight){
 int PositioningThread::selectSpeed(int diff){
 	int localDiff = abs(diff);
 	int speed = -1;
-	if (localDiff > 200) {
+	if (localDiff > 20) {
 		speed = 100;
-	} else if (localDiff > 100) {
+	} else if (localDiff > 10) {
 		speed = 50;
-	} else if (localDiff > 50) {
+	} else if (localDiff > 5) {
 		speed = 20;
 	} else {
 		speed = 10;
