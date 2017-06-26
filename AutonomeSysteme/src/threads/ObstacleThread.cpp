@@ -63,7 +63,7 @@ void ObstacleThread::run() {
 		ultraFrontRight = HAL::getUltrasonicHAL().getDistanceFrontRight();
 		ultraBackLeft = HAL::getUltrasonicHAL().getDistanceRearLeft();
 		ultraBackRight = HAL::getUltrasonicHAL().getDistanceRearRight();
-		if(HAL::getRemoteHAL().getValueChannel7() < 1700){
+		if(HAL::getRemoteHAL().getValueChannel7() < 1700 && HAL::getRemoteHAL().getValueChannel7() > 1300){
 			switch (modus) {
 				case OBSTACLE_FRONT:
 					if(ultraFronLeft <= limits || ultraFrontRight <= limits){
