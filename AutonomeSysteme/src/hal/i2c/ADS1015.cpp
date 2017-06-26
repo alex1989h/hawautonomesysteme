@@ -6,7 +6,9 @@
  */
 
 #include "ADS1015.h"
-
+#include "../../logger/Logger.h"
+#include "../HAL.h"
+#include "../../math/mymath.h"
 //Registers
 #define ADS1015_CONVERSION_REGISTER				0x00
 #define ADS1015_CONFIG_REGISTER					0x01
@@ -70,6 +72,7 @@ int16_t ADS1015::getValueFromADC(uint16_t adc) {
 	usleep(700); // wait till conversion is done
 
 	uint16_t result = wiringPiI2CReadReg16(fd, ADS1015_CONVERSION_REGISTER);
+
 	// Swap bytes - wrong order in I2C registers
 	return __bswap_16 (result);
 }
@@ -107,7 +110,7 @@ void ADS1015::refresh_ADC_3() {
  * @return Converted voltage.
  */
 int16_t ADS1015::getDistanceAdc0() const {
-	return distance_ADC_0;
+	return remap(distance_ADC_0,-1300,15500,146,1380);
 }
 
 /**
@@ -115,7 +118,7 @@ int16_t ADS1015::getDistanceAdc0() const {
  * @return Converted voltage.
  */
 int16_t ADS1015::getDistanceAdc1() const {
-	return distance_ADC_1;
+	return remap(distance_ADC_1,-1300,15500,146,1380);
 }
 
 /**
@@ -123,7 +126,7 @@ int16_t ADS1015::getDistanceAdc1() const {
  * @return Converted voltage.
  */
 int16_t ADS1015::getDistanceAdc2() const {
-	return distance_ADC_2;
+	return remap(distance_ADC_2,-1300,15500,146,1380);
 }
 
 /**
@@ -131,7 +134,7 @@ int16_t ADS1015::getDistanceAdc2() const {
  * @return Converted voltage.
  */
 int16_t ADS1015::getDistanceAdc3() const {
-	return distance_ADC_3;
+	return remap(distance_ADC_3,-1300,15500,146,1380);
 }
 
 /**

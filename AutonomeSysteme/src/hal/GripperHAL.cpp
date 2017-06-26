@@ -58,8 +58,7 @@ GripperHAL::~GripperHAL() {
 }
 
 int GripperHAL::convertDegree(int degree) {
-	return (int) ((((HORIZONTAL_RIGHT_RANGE_LIMIT - HORIZONTAL_LEFT_RANGE_LIMIT) / (float) DEGREE_180)
-			* degree) + HORIZONTAL_LEFT_RANGE_LIMIT);
+	return remap(degree,DEGREE_0,DEGREE_180,HORIZONTAL_LEFT_RANGE_LIMIT,HORIZONTAL_RIGHT_RANGE_LIMIT);
 
 }
 
@@ -104,15 +103,15 @@ void GripperHAL::moveHorizontalToDegree(int degree) {
 		}
 	} else if(degree > DEGREE_180) {
 		horizontalDegree_ = DEGREE_180;
-		if(horizontalRange_ != HORIZONTAL_RIGHT_RANGE_LIMIT) {
-			horizontalRange_ = HORIZONTAL_RIGHT_RANGE_LIMIT;
-			pwmWrite(HORIZONTAL_PWM3, HORIZONTAL_RIGHT_RANGE_LIMIT);
-		}
-	} else if(degree < DEGREE_0) {
-		horizontalDegree_ = DEGREE_0;
 		if(horizontalRange_ != HORIZONTAL_LEFT_RANGE_LIMIT) {
 			horizontalRange_ = HORIZONTAL_LEFT_RANGE_LIMIT;
 			pwmWrite(HORIZONTAL_PWM3, HORIZONTAL_LEFT_RANGE_LIMIT);
+		}
+	} else if(degree < DEGREE_0) {
+		horizontalDegree_ = DEGREE_0;
+		if(horizontalRange_ != HORIZONTAL_RIGHT_RANGE_LIMIT) {
+			horizontalRange_ = HORIZONTAL_RIGHT_RANGE_LIMIT;
+			pwmWrite(HORIZONTAL_PWM3, HORIZONTAL_RIGHT_RANGE_LIMIT);
 		}
 	}
 }
